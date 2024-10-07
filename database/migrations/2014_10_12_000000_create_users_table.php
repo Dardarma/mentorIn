@@ -21,12 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('path_photo', 255)->nullable();
+            $table->string('asal_instansi');
             $table->enum('status', ['ENABLE', 'DISABLE'])->default('ENABLE');
             $table->integer('fail_login_count')->nullable()->default(0);
             $table->timestamp('last_login')->nullable();
+            $table->bigInteger('periode_id')->unsigned()->nullable();
             $table->timestamps();
             $table->bigInteger('created_by')->unsigned()->nullable();
             $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->foreign('periode_id')->references('id')->on('periodes')->onDelete('cascade');
         });
         // User::create([
         //     'name' => 'Admin Smartsoft 1',
