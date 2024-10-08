@@ -24,3 +24,26 @@ Route::get('/dashboard', function(){
 Route::get('/login', function(){
     return view('loginpage.login');
 });
+
+
+Route::get('/kalender', function(){
+    return view('kalender.kalender');
+});
+
+Route::get('/mentoring-list',function(){
+    return view('mentoring.listmentoring');
+});
+
+Route::get('/user-list',function(){
+    return view('user.listUser');
+});
+
+Route::get('/role-list',function(){
+    return view('role.listRole');
+});
+
+Route::get('/menu-list',function(){
+    return view('menumaster.listMenuMaster');
+});
+
+
