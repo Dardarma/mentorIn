@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('role_permissions', function (Blueprint $table) {
             $table->id('role_permission_id');
             $table->bigInteger('role_id');
+            $table->bigInteger('permission_id');
             $table->bigInteger('menu_master_id');
             $table->bigInteger('role_menu_id');
             $table->string('slug');
             $table->boolean('value')->nullable()->default('true');
             $table->timestamps();
 
+            $table->foreign('permission_id')->references('id')->on('permissions');
             $table->foreign('role_id')->references('role_id')->on('roles')->onDelete('cascade');
             $table->foreign('menu_master_id')->references('menu_master_id')->on('menu_masters')->onDelete('cascade');
             $table->foreign('role_menu_id')->references('role_menu_id')->on('role_menus')->onDelete('cascade');
