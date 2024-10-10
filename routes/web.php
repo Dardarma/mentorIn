@@ -46,4 +46,12 @@ Route::get('/menu-list',function(){
     return view('menumaster.listMenuMaster');
 });
 
+Route::get('/mentoring-edit',function(){
+    return view('mentoring.editMentoring');
+});
+
+Route::get('/user-add',function(){
+    return view('user.addUser');
+});
+
 

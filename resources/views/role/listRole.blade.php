@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List mentroIn</h1>
+                    <h1>Role</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,13 +25,14 @@
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>Tanggal</th>
-                          <th>Jam</th>
-                          <th>Mentee</th>
-                          <th>Materi</th>
-                          <th>Hasil</th>
-                          <th>Feedback</th>
-                          <th>aksi</th>
+                          <th>Role</th>
+                          <th>Type</th>
+                          <th>Icon</th>
+                          <th>Link</th>
+                          <th>Ururtan</th>
+                          <th>Slug</th>
+                          <th>Status</th>
+                          <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,6 +44,7 @@
                           <td>Win 95+</td>
                           <td> 4</td>
                           <td>X</td>
+                          <td>ssd</td>
                           <td>ssd</td>
                           <td>
                             <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
@@ -59,6 +61,7 @@
                           <td>5</td>
                           <td>C</td>
                           <td>asdasds</td>
+                          <td>ssd</td>
                           <td>
                             <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                             <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -74,6 +77,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -89,6 +93,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -104,6 +109,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -119,6 +125,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -134,6 +141,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -149,6 +157,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -164,6 +173,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                                 <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -179,6 +189,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -194,6 +205,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -209,6 +221,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -224,6 +237,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -239,6 +253,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -254,6 +269,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -269,6 +285,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
@@ -283,6 +300,7 @@
                             <td>5</td>
                             <td>C</td>
                             <td>asdasds</td>
+                            <td>ssd</td>
                             <td>
                               <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                               <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>

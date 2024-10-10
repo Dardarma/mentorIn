@@ -29,6 +29,9 @@
   <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}"/>>
   <link rel="stylesheet" href="{{asset ('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}"/>
   <link rel="stylesheet" href="{{asset ('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}"/>
+  <link rel="stylesheet" href="{{asset ('plugins/daterangepicker/daterangepicker.css')}}">
+  <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+
 
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
   <script>
@@ -48,7 +51,7 @@
             background: #ffffff;
          }
 
-        @yield('background-style');
+        @yield('style');
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

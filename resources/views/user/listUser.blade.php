@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List mentroIn</h1>
+                    <h1>User</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,12 +25,12 @@
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>Tanggal</th>
-                          <th>Jam</th>
-                          <th>Mentee</th>
-                          <th>Materi</th>
-                          <th>Hasil</th>
-                          <th>Feedback</th>
+                          <th>Nama</th>
+                          <th>User</th>
+                          <th>role</th>
+                          <th>Asal Instansi</th>
+                          <th>Periode</th>
+                          <th>Status</th>
                           <th>aksi</th>
                         </tr>
                         </thead>

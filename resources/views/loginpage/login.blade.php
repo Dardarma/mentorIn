@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('background-style')
+@section('style')
         body {
             background-image: url('{{ asset('storage/login_background/default.jpg') }}');
             background-size: cover;
@@ -15,7 +15,7 @@
 
         .card {
             background-color: #d9d9d9
-            height: 70vh; /* Pastikan satuan height dan width benar */
+            height: 70vh; 
             width: 70vw;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
             border-radius: 10px; 
