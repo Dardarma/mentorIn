@@ -25,7 +25,7 @@
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th>Nama</th>
+                          <th>Nama Menu</th>
                           <th>Type</th>
                           <th>Permisiion</th>
                           <th>Menu</th>
