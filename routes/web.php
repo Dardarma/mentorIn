@@ -54,4 +54,10 @@ Route::get('/user-add',function(){
     return view('user.addUser');
 });
 
+Route::get('/menu-add',function(){
+    return view('menumaster.addMenuMaster');
+});
 
+Route::get('/menu-add',function(){
+    return view('menumaster.editMenuMaster');
+});
