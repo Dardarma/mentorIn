@@ -113,6 +113,12 @@
                   <p>Menu Master</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{url('/admin/periode-magang/list')}}" class="nav-link {{request()->is('admin/periodeMagang/*')? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Periode Magang</p>
+                </a>
+              </li>
             </ul>
           </li>
          

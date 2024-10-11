@@ -110,7 +110,7 @@ Route::prefix('admin')->group(function(){
         });
     });
 
-    Route::prefix('PeriodeMagang')->group(function() {
+    Route::prefix('periode-magang')->group(function() {
         Route::get('/list', function() {
             return view('periodeMagang.listPeriodeMagang');
         });
@@ -120,7 +120,7 @@ Route::prefix('admin')->group(function(){
         });
     
         Route::get('/edit', function() {
-            return view('periodeMagang.listPeriodeMagang');
+            return view('periodeMagang.editPeriodeMagang');
         });
     });
 
