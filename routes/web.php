@@ -54,10 +54,6 @@ Route::prefix('admin')->group(function(){
         Route::get('/add',function(){
             return view('user.addUser');
         });
-
-        Route::get('/edit',function(){
-            return view('user.EditUser');
-        });
     
         Route::get('/view',function(){
             return view('user.userView');
@@ -110,6 +106,20 @@ Route::prefix('admin')->group(function(){
         });
     });
 
+    Route::prefix('PeriodeMagang')->group(function() {
+        Route::get('/list', function() {
+            return view('periodeMagang.listPeriodeMagang');
+        });
     
+        Route::get('/add', function() {
+            return view('periodeMagang.addPeriodeMagang');
+        });
+    
+        Route::get('/edit', function() {
+            return view('periodeMagang.listPeriodeMagang');
+        });
+    });
+
 });
+
 
