@@ -58,6 +58,10 @@ Route::prefix('admin')->group(function(){
         Route::get('/view',function(){
             return view('user.userView');
         });
+
+        Route::get('/edit',function(){
+            return view('user.EditUser');
+        });
     
     });
     
