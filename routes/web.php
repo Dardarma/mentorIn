@@ -13,51 +13,98 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+Route::get('/', function(){
+    return view('loginpage.login');
 });
 
 Route::get('/dashboard', function(){
     return view('dashboard.dashboard');
 });
 
-Route::get('/login', function(){
-    return view('loginpage.login');
-});
-
-
 Route::get('/kalender', function(){
     return view('kalender.kalender');
 });
 
-Route::get('/mentoring-list',function(){
-    return view('mentoring.listmentoring');
+Route::prefix('mentoring')->group(function () {
+    Route::get('/edit', function() {
+        return view('mentoring.editMentoring');
+    });
+
+    Route::get('/list', function() {
+        return view('mentoring.listMentoring');
+    });
+
+    Route::get('/add', function() {
+        return view('mentoring.editMentoring');
+    });
 });
 
-Route::get('/user-list',function(){
-    return view('user.listUser');
+Route::prefix('admin')->group(function(){
+
+    
+    Route::prefix('/user')->group(function(){
+    
+        Route::get('/list', function() {
+            return view('user.listUser');
+        });
+    
+        Route::get('/add',function(){
+            return view('user.addUser');
+        });
+    
+        Route::get('/view',function(){
+            return view('user.userView');
+        });
+    
+    });
+    
+    
+    Route::prefix('/role')->group(function(){
+    
+        Route::get('/list',function(){
+            return view('role.listRole');
+        });
+    
+        Route::get('/add',function(){
+            return view('role.addRole');
+        });
+    
+        Route::get('/edit',function(){
+            return view('role.editRole');
+        });
+    
+    });
+    
+    Route::prefix('menu')->group(function() {
+        Route::get('/list', function() {
+            return view('menumaster.listMenuMaster');
+        });
+    
+        Route::get('/add', function() {
+            return view('menumaster.addMenuMaster');
+        });
+    
+        Route::get('/edit', function() {
+            return view('menumaster.editMenuMaster');
+        });
+    });
+
+    Route::prefix('permision')->group(function() {
+        Route::get('/list', function() {
+            return view('permision.listPermision');
+        });
+    
+        Route::get('/add', function() {
+            return view('permision.addPermision');
+        });
+    
+        Route::get('/edit', function() {
+            return view('permision.listPermision');
+        });
+    });
+
 });
 
-Route::get('/role-list',function(){
-    return view('role.listRole');
-});
-
-Route::get('/menu-list',function(){
-    return view('menumaster.listMenuMaster');
-});
-
-Route::get('/mentoring-edit',function(){
-    return view('mentoring.editMentoring');
-});
-
-Route::get('/user-add',function(){
-    return view('user.addUser');
-});
-
-Route::get('/menu-add',function(){
-    return view('menumaster.addMenuMaster');
-});
-
-Route::get('/menu-add',function(){
-    return view('menumaster.editMenuMaster');
-});

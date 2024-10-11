@@ -17,246 +17,55 @@
         </div>
     </section>
 
-    <div class="container-fluid">
+    <div class="card mx-1">
+      <div class="card-header">
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                      <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                          <th>Nama Menu</th>
-                          <th>Type</th>
-                          <th>Permisiion</th>
-                          <th>Menu</th>
-                          <th>Aksi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                          <td>Trident</td>
-                          <td>Internet
-                            Explorer 4.0
-                          </td>
-                          <td>Win 95+</td>
-                          <td> 4</td>
-                          <td>
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                        </tr>
-                        <tr>
-                          <td>Trident</td>
-                          <td>Internet
-                            Explorer 5.0
-                          </td>
-                          <td>Win 95+</td>
-                          <td>asdasds</td>
-                          <td>
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                                <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                                <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr>
-                          <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                          </tr><tr>
-                            <td>Trident</td>
-                            <td>Internet
-                              Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>asdasds</td>
-                            <td>
-                              <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
-                              <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                          </td>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-        </div>
+          <div class="col-6">
+              <h2 class="card-title">Data Permission</h2>
+          </div>
+          <div class="col-6 d-flex justify-content-end">
+              <a href="/admin/permision/add" class="btn btn-success">Tambah Permission</a>
+          </div>
+        </div>      
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Nama Menu</th>
+            <th>Type</th>
+            <th>Permisiion</th>
+            <th>Menu</th>
+            <th>Aksi</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Trident</td>
+              <td>Internet
+                Explorer 4.0
+              </td>
+              <td>Win 95+</td>
+              <td> 4</td>
+              <td>
+                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
+                <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
+                <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+          <tfoot>
+          <tr>
+            <th>Nama Menu</th>
+            <th>Type</th>
+            <th>Permisiion</th>
+            <th>Menu</th>
+            <th>Aksi</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!-- /.card-body -->
     </div>
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>

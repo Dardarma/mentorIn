@@ -41,16 +41,21 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    <img src="{{ asset('storage/logo_icon_apps/logo-dark.png') }}" alt="" style="width: 100%; height: auto;margin-top:15% " >
+                    <img src="{{ asset('storage/mentorIn_property/logo.png') }}" alt="" style="width: 100%; height: auto;margin-top:15% " >
+                    <div style="text-align:center">
+                        Powered By:
+                        <img src="{{ asset('storage/logo_icon_apps/logo-dark.png') }}" alt="" style="width: auto; height: 25px;margin-top:15% " >
+                    </div>
                 </div>
                 <div class="col-6">
-                    <h1 style="text-align: center">mentorIn</h1>
-                    <h5>Login</h5>
-                    <form>
-                        <input type="text" placeholder="Username" class="form-control mb-3">
-                        <input type="password" placeholder="Password" class="form-control mb-3">
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </form>
+                    <div style="margin-top:15% ">
+                        <h5>Login</h5>
+                        <form>
+                            <input type="text" placeholder="Username" class="form-control mb-3">
+                            <input type="password" placeholder="Password" class="form-control mb-3">
+                            <a href="{{ url('/dashboard') }}" class="btn btn-primary" role="button">Login</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
