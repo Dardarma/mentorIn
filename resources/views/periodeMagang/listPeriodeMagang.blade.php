@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List mentroIn</h1>
+                    <h1>Periode Magang</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item ">Home</li>
-                        <li class="breadcrumb-item active"><a href="#">Jadwal Mentoring</a></li>
+                        <li class="breadcrumb-item active"><a href="#">List Mentoring</a></li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
               <h2 class="card-title">Data Mentoring</h2>
           </div>
           <div class="col-6 d-flex justify-content-end">
-              <a href="{{url ('/admin/permision/add')}}" class="btn btn-success">Tambah Jadwal</a>
+              <a href="{{url ('/admin/periodeMagang/add')}}" class="btn btn-success">Tambah Jadwal</a>
           </div>
         </div>      
       </div>
@@ -33,12 +33,8 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>Role</th>
-            <th>Type</th>
-            <th>Icon</th>
-            <th>Link</th>
-            <th>Ururtan</th>
-            <th>Slug</th>
+            <th>Tanggal Mulai</th>
+            <th>Tanggal Selesai</th>
             <th>Status</th>
             <th>Aksi</th>
           </tr>
@@ -52,23 +48,18 @@
               <td>Win 95+</td>
               <td> 4</td>
               <td>X</td>
-              <td>ssd</td>
-              <td>ssd</td>
               <td>
-                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
+                <a href="{{url ('/admin/periodeMagang/edit')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
                 <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
             </td>
-        </tr>
+          </tr>
           <tfoot>
           <tr>
-            <th>Tanggal</th>
-            <th>Jam</th>
-            <th>Mentee</th>
-            <th>Materi</th>
-            <th>Hasil</th>
-            <th>Feedback</th>
-            <th>aksi</th>
+            <th>Tanggal Mulai</th>
+            <th>Tanggal Selesai</th>
+            <th>Status</th>
+            <th>Aksi</th>
           </tr>
           </tfoot>
         </table>

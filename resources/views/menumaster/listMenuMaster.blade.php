@@ -21,10 +21,10 @@
       <div class="card-header">
         <div class="row">
           <div class="col-6">
-              <h2 class="card-title">Data Permission</h2>
+              <h2 class="card-title">Data Mentoring</h2>
           </div>
           <div class="col-6 d-flex justify-content-end">
-              <a href="/admin/permision/add" class="btn btn-success">Tambah Permission</a>
+              <a href="/admin/permision/add" class="btn btn-success">Tambah Jadwal</a>
           </div>
         </div>      
       </div>
