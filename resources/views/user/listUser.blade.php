@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item ">Home</li>
-                        <li class="breadcrumb-item active"><a href="#">List Mentoring</a></li>
+                        <li class="breadcrumb-item active"><a href="#">List User</a></li>
                     </ol>
                 </div>
             </div>
@@ -21,10 +21,10 @@
       <div class="card-header">
         <div class="row">
           <div class="col-6">
-              <h2 class="card-title">Data Permission</h2>
+              <h2 class="card-title">Data User</h2>
           </div>
           <div class="col-6 d-flex justify-content-end">
-              <a href="/admin/permision/add" class="btn btn-success">Tambah Permission</a>
+              <a href="{{asset ('/admin/user/add')}}" class="btn btn-success">Tambah User</a>
           </div>
         </div>      
       </div>
@@ -53,8 +53,8 @@
               <td>X</td>
               <td>ssd</td>
               <td>
-                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
-                <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
+                <a href="{{asset('/admin/user/edit')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
+                <a href="{{asset('/admin/user/view')}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
                 <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
             </td>
           </tr>

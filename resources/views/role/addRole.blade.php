@@ -7,7 +7,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-1 px-0">
-                        <button type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></button>
+                        <a href="{{asset('/admin/role/list')}}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
                     </div>
                     <div class="col-7">
                         <h3>Tambah Role</h3>

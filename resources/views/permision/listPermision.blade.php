@@ -51,7 +51,7 @@
               <td> 4</td>
               <td>X</td>
               <td>
-                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
+                <a href="{{asset ('/admin/permision/edit')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
                 <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
             </td>

@@ -37,7 +37,7 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-1">
-                        <button type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></button>
+                        <a href="{{asset('/admin/user/list')}}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
                     </div>
                     <div class="col-7">
                         <h3>User View</h3>

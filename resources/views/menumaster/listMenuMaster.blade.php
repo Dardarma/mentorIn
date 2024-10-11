@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item ">Home</li>
-                        <li class="breadcrumb-item active"><a href="#">List Mentoring</a></li>
+                        <li class="breadcrumb-item active"><a href="#">List Menu </a></li>
                     </ol>
                 </div>
             </div>
@@ -21,10 +21,10 @@
       <div class="card-header">
         <div class="row">
           <div class="col-6">
-              <h2 class="card-title">Data Permission</h2>
+              <h2 class="card-title">Data Menu</h2>
           </div>
           <div class="col-6 d-flex justify-content-end">
-              <a href="/admin/permision/add" class="btn btn-success">Tambah Permission</a>
+              <a href="{{asset ('/admin/menu/add')}}" class="btn btn-success">Tambah Menu</a>
           </div>
         </div>      
       </div>
@@ -49,7 +49,7 @@
               <td>Win 95+</td>
               <td> 4</td>
               <td>
-                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
+                <a href="{{asset ('/admin/menu/edit')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
                 <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
             </td>

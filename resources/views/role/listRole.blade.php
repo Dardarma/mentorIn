@@ -21,10 +21,10 @@
       <div class="card-header">
         <div class="row">
           <div class="col-6">
-              <h2 class="card-title">Data Permission</h2>
+              <h2 class="card-title">Data Role</h2>
           </div>
           <div class="col-6 d-flex justify-content-end">
-              <a href="/admin/permision/add" class="btn btn-success">Tambah Permission</a>
+              <a href="{{asset('/admin/role/add')}}" class="btn btn-success">Tambah Role</a>
           </div>
         </div>      
       </div>
@@ -53,7 +53,7 @@
               <td>X</td>
               <td>ssd</td>
               <td>
-                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
+                <a href="{{asset ('/admin/role/edit')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
                 <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
             </td>

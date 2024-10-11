@@ -21,10 +21,10 @@
       <div class="card-header">
         <div class="row">
           <div class="col-6">
-              <h2 class="card-title">Data Permission</h2>
+              <h2 class="card-title">Data Mentoring</h2>
           </div>
           <div class="col-6 d-flex justify-content-end">
-              <a href="/admin/permision/add" class="btn btn-success">Tambah Permission</a>
+              <a href="{{asset ('/mentoring/add')}}" class="btn btn-success">Tambah Jadwal</a>
           </div>
         </div>      
       </div>
@@ -33,13 +33,12 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
-            <th>Role</th>
-            <th>Type</th>
-            <th>Icon</th>
-            <th>Link</th>
-            <th>Ururtan</th>
-            <th>Slug</th>
-            <th>Status</th>
+            <th>Tanggal</th>
+            <th>Jam</th>
+            <th>Mentee</th>
+            <th>Materi</th>
+            <th>Hasil</th>
+            <th>Feedback</th>
             <th>Aksi</th>
           </tr>
           </thead>
@@ -53,9 +52,8 @@
               <td> 4</td>
               <td>X</td>
               <td>ssd</td>
-              <td>ssd</td>
               <td>
-                <button type="button" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
+                <a href="{{asset ('/mentoring/edit')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
                 <button type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></button>
                 <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
             </td>
@@ -68,7 +66,7 @@
             <th>Materi</th>
             <th>Hasil</th>
             <th>Feedback</th>
-            <th>aksi</th>
+            <th>Aksi</th>
           </tr>
           </tfoot>
         </table>

@@ -10,7 +10,7 @@
                             <a href="{{asset('/admin/user/list')}}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
                         </div>
                         <div class="col-7">
-                            <h3>Tambah User</h3>
+                            <h3>Edit User</h3>
                         </div>
                     </div>
                 </div>
