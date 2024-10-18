@@ -24,7 +24,7 @@ class HasilService
     {
         return Hasil_mentoring::query();
     }
-    
+
      /**
      * create new user
      *
@@ -53,9 +53,8 @@ class HasilService
             }
 
             $user = Hasil_mentoring::create([
-                'name' => $payload['name'],
-                'username' => $payload['username'],
-                'password' => Hash::make($payload['password']),
+                'id_materi' => $payload['id_materi'],
+                'hasil_mentoring' => $payload['hasil_mentoring'],
                 'path_photo' => $photo,
                 'status' => "ENABLE",
                 'fail_login_count' => 0,
