@@ -3,98 +3,103 @@
 
 <div class="container-fluid">
     <div class="row px-0 mx-2">
-            <div class="card col-12 mt-4">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-1 px-0">
-                            <a href="{{asset('/admin/user/list')}}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
-                        </div>
-                        <div class="col-7">
-                            <h3>Tambah User</h3>
-                        </div>
+        <div class="card col-12 mt-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-1 px-0">
+                        <a href="{{ asset('/admin/user/list') }}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                    <div class="col-7">
+                        <h3>Tambah User</h3>
                     </div>
                 </div>
-                <div class="card-body">
-    <div class="row">
-        <div class="col-8 mt-4">
-            <label>Nama:</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Judul Materi">
-        </div>
-        <div class="col-8 mt-4">
-            <label>User Name:</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Judul Materi">
-        </div>
-        <div class="col-8 mt-4">
-            <label>Password:</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama Mentee">
-        </div>
-        <div class="col-8 mt-4">
-            <label>Asal Instanasi:</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama Mentee">
-        </div>
-        <div class="col-4"></div>
-        <div class="col-4 mt-4">
-            <div class="form-group">
-                <label>Periode magang</label>
-                <select class="form-control select2" style="width: 100%;">
-                    <option selected="selected">Alabama</option>
-                    <option>Alaska</option>
-                    <option>California</option>
-                    <option>Delaware</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Washington</option>
-                </select>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8 mt-4">
+                        <label>Nama:</label>
+                        <input type="text" class="form-control" placeholder="Nama User">
+                    </div>
+                    <div class="col-8 mt-4">
+                        <label>User Name:</label>
+                        <input type="text" class="form-control" placeholder="User Name">
+                    </div>
+                    <div class="col-8 mt-4">
+                        <label>Password:</label>
+                        <input type="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="col-8 mt-4">
+                        <label>Asal Instansi:</label>
+                        <input type="text" class="form-control" placeholder="Asal Instansi">
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4 mt-4">
+                        <div class="form-group">
+                            <label>Periode Magang</label>
+                            <select class="form-control select2" style="width: 100%;">
+                                <option selected="selected">Alabama</option>
+                                <option>Alaska</option>
+                                <option>California</option>
+                                <option>Delaware</option>
+                                <option>Tennessee</option>
+                                <option>Texas</option>
+                                <option>Washington</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <label>Status:</label>
+                        <select class="form-control select2" style="width: 100%;">
+                            <option selected="selected">Enable</option>
+                            <option>Disable</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="container mt-3">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-success" id="submitButton">Submit</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-4 mt-4">
-            <label>Status:</label>
-            <select class="form-control select2" style="width: 100%;">
-                <option selected="selected">Enable</option>
-                <option>Disable</option>
-            </select>
-        </div>
     </div>
-    <div class="container mt-3">
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-success">Submit</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Anjai Muncul</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Menu berhasil di tambahkan!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <button type="button" class="btn btn-primary" id="confirmButton">Ya</button>
+            </div>
         </div>
     </div>
 </div>
 
-        </div>
-    </div>
-</div>
-
-
-<script src="{{asset ('plugins/jquery/jquery.min.js')}}"></script>
-
-<script src="{{asset ('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-<script src="{{asset ('plugins/daterangepicker/daterangepicker.js')}}"></script>
-
-<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
-
-<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <script>
-    $('#timepicker1').datetimepicker({
-        format: 'LT', // Format for displaying the time
-        icons: {
-            time: 'far fa-clock', // Icon used in the time picker
-        }
+    document.getElementById('submitButton').addEventListener('click', function() {
+        // Menampilkan modal
+        $('#confirmationModal').modal('show');
     });
 
-    $('#timepicker2').datetimepicker({
-        format: 'LT', // Format for displaying the time
-        icons: {
-            time: 'far fa-clock', // Icon used in the time picker
-        }
-    });
+    document.getElementById('confirmButton').addEventListener('click', function() {
+        // Logika untuk menambahkan user di sini
+        // Contoh: $('#yourFormId').submit();
 
-    $('#reservationdate').datetimepicker({
-        format: 'L'
+        $('#confirmationModal').modal('hide');
     });
 </script>
 
