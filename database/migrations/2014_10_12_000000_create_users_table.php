@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('path_photo', 255)->nullable();
-            $table->string('asal_instansi');
+            $table->string('asal_instansi')->nullable();
             $table->enum('status', ['ENABLE', 'DISABLE'])->default('ENABLE');
             $table->integer('fail_login_count')->nullable()->default(0);
             $table->timestamp('last_login')->nullable();
