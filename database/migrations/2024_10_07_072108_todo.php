@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('todo');
             $table->enum('tipe_todo', ['PAST' , 'PRA'])->default('PAST');
+            $table->timestamps();
         });
     }
 
