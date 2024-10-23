@@ -5,6 +5,8 @@ use App\Http\Controllers\API\V1\MenuController;
 use App\Http\Controllers\API\V1\ReferenceController;
 use App\Http\Controllers\API\V1\RoleController;
 use App\Http\Controllers\API\V1\UserController;
+use App\Http\Controllers\API\V1\HasilController;
+use App\Http\Controllers\API\V1\JadwalController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -71,4 +73,10 @@ Route::prefix('v1')->group(function () {
         Route::get('/get-role-option', [ReferenceController::class, 'getRoleOption'])->middleware(['auth.api']);
         Route::get('/get-menu-access', [ReferenceController::class, 'getMenuAccess'])->middleware(['auth.api']);
     });
+});
+Route::prefix('jadwal')->group(function (){
+    Route::get('/', [JadwalController::class, 'index']);
+    Route::post('/tambah', [JadwalController::class, 'store']);
+    Route::put('/update/{id}', [JadwalController::class, 'update']);
+    Route::delete('delete/{id}', [JadwalController::class, 'destroy']);
 });

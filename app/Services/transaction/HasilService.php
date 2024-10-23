@@ -1,16 +1,11 @@
 <?php
 
-namespace App\Services\Master;
+namespace App\Services\Transaction;
 
-use App\Models\MenuMaster;
 use App\Models\Hasil_mentoring;
-use App\Models\RoleMenu;
-use App\Models\RolePermission;
+use App\Models\Todo;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class HasilService
 {
@@ -24,8 +19,17 @@ class HasilService
     {
         return Hasil_mentoring::query();
     }
+    public static function getAllPaginate(/*$filter = []*/ $page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
+    {
+        $query = Hasil_mentoring::query();
+        $data = $query->paginate($per_page, ['*'], 'page', $page)->appends('per_page', $per_page);
+        return [
+            'status' => true,
+            'data' => $data,
+        ];
+    }
 
-     /**
+    /**
      * create new user
      *
      * @param  array $payload
@@ -35,40 +39,44 @@ class HasilService
     {
         DB::beginTransaction();
         try {
-            $photo = '/storage/user_profile/default.png';
-            if ($payload['path_photo'] != "") {
-                $path_file = $payload['path_photo'];
-                $explode_file = explode("/", $path_file);
-                $name_file = $explode_file[3];
-
-                $explode_name_file = explode(".", $name_file);
-                $ext_file = $explode_name_file[1];
-                if (Storage::disk('public')->exists('temporary_file/' . $name_file)) {
-                    $name_file_new = "user_profile-" . Carbon::now()->format('Ymd_H_i_s') . "." . $ext_file;
-                    $moved = 'public/user-profile/' . $name_file_new;
-                    Storage::move('public/temporary_file/' . $name_file, $moved);
-                    $url_foto = Storage::url($moved);
-                }
-                $photo = $url_foto;
-            }
-
-            $user = Hasil_mentoring::create([
+            $todo = Todo::create([
+                'todo' => $payload['todo'],
+                'tipe_todo' => 'PAST',
+            ]);
+            $hasil = Hasil_mentoring::create([
                 'id_materi' => $payload['id_materi'],
                 'hasil_mentoring' => $payload['hasil_mentoring'],
-                'path_photo' => $photo,
-                'status' => "ENABLE",
-                'fail_login_count' => 0,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'created_by' => Auth::user()->user_id,
+                'feedback' => $payload['feedback'],
+                'jadwal_id' => $payload['jadwal_id'],
+                'todo_id' => $todo->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
 
             DB::commit();
             return [
                 'status' => true,
-                'data'   => $user,
+                'data'   => $hasil,
             ];
         } catch (\Throwable $th) {
             DB::rollBack();
+            return [
+                'status' => false,
+                'errors' => $th->getMessage(),
+            ];
+        }
+    }
+    public static function getByJadwalId($jadwal_id): array
+    {
+        try {
+            $data = Hasil_mentoring::with(['todo' => function ($query) {
+                $query->where('tipe_todo', 'past');
+            }])->where('jadwal_id', $jadwal_id)->first();
+
+            return [
+                'status' => true,
+                'data'   => $data,
+            ];
+        } catch (\Throwable $th) {
             return [
                 'status' => false,
                 'errors' => $th->getMessage(),
