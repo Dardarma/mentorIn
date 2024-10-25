@@ -33,11 +33,12 @@ class JadwalController extends Controller
     {
         $payload = [
             'todo' => $request->input('todo'),
+            'materi' => $request->input('materi'),
+            'deskripsi' => $request->input('deskripsi'),
             'tanggal_mentoring' => $request->input('tanggal_mentoring'),
             'jam_mentoring' => $request->input('jam_mentoring'),
             'user_id' => $request->input('user_id'),
-            'mentor_id' => $request->input('mentor_id'),
-            'materi_id' => $request->input('materi_id')
+            'mentor_id' => $request->input('mentor_id')
         ];
         $validate = Validator::make($payload, [
             'todo' => 'required|string',
@@ -45,7 +46,8 @@ class JadwalController extends Controller
             'jam_mentoring' => 'required',
             'user_id' => 'required|integer',
             'mentor_id' => 'required|integer',
-            'materi_id' => 'required|integer',
+            'materi' => 'required',
+            'deskripsi' => 'string'
         ], [
             'required' => ':attribute harus diisi',
             'string' => ':attribute harus berupa string',
@@ -57,7 +59,8 @@ class JadwalController extends Controller
             'jam_mentoring' => 'Jam Mentoring',
             'user_id' => 'ID User',
             'mentor_id' => 'ID Mentor',
-            'materi_id' => 'ID Materi'
+            'materi' => 'Materi',
+            'deskripsi' => 'Deskripsi'
         ]);
 
         if ($validate->fails()) {

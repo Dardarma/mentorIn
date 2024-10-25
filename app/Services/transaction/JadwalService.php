@@ -4,6 +4,7 @@ namespace App\Services\Transaction;
 
 use App\Helpers\ResponseFormatter;
 use App\Models\Jadwal;
+use App\Models\Materi_mentoring;
 use App\Models\Todo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +40,10 @@ class JadwalService{
     {
         DB::beginTransaction();
         try {
+            $materi = Materi_mentoring::create([
+                'materi' => $payload['materi'],
+                'description' => $payload['deskripsi']
+            ]);
             $todo = Todo::create([
                 'todo' => $payload['todo'],
                 'tipe_todo' => 'PRA',
@@ -50,7 +55,7 @@ class JadwalService{
                 'todo_id' => $todo->id,
                 'user_id' => $payload['user_id'],
                 'mentor_id' => $payload['mentor_id'],
-                'materi_id' => $payload['materi_id'],
+                'materi_id' => $materi->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
 
