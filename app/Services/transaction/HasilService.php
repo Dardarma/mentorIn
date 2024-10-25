@@ -19,7 +19,7 @@ class HasilService
     {
         return Hasil_mentoring::query();
     }
-    public static function getAllPaginate(/*$filter = []*/ $page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
+    public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
     {
         $query = Hasil_mentoring::query();
         $data = $query->paginate($per_page, ['*'], 'page', $page)->appends('per_page', $per_page);
@@ -70,13 +70,53 @@ class HasilService
         try {
             $data = Hasil_mentoring::with(['todo' => function ($query) {
                 $query->where('tipe_todo', 'past');
-            }])->where('jadwal_id', $jadwal_id)->first();
+            }])->where('id', $jadwal_id)->first();
 
             return [
                 'status' => true,
                 'data'   => $data,
             ];
         } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'errors' => $th->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * edit jadwal
+     *
+     * @param  mixed $payload
+     * @param  mixed $id
+     * @return array
+     */
+    public static function edit(array $payload, $id): array
+    {
+        DB::beginTransaction();
+        try {
+            $data = Hasil_mentoring::where('id', $id)->first();
+            if (empty($data)) {
+                return [
+                    'status' => false,
+                    'errors' => "not found",
+                ];
+            } else {
+                $update_data = [
+                    'id_materi' => $payload['id_materi'],
+                    'hasil_mentoring' => $payload['hasil_mentoring'],
+                    'feedback' => $payload['feedback'],
+                    'jadwal_id' => $payload['jadwal_id'],
+                ];
+                $data->update($update_data);
+                DB::commit();
+                return [
+                    'status' => true,
+                    'data'   => $data,
+                ];
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
             return [
                 'status' => false,
                 'errors' => $th->getMessage(),

@@ -75,7 +75,7 @@ Route::prefix('v1')->group(function () {
     });
 });
 Route::prefix('jadwal')->group(function (){
-    Route::get('/', [JadwalController::class, 'index']);
+    Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api']);
     Route::post('/tambah', [JadwalController::class, 'store']);
     Route::put('/update/{id}', [JadwalController::class, 'update']);
     Route::delete('delete/{id}', [JadwalController::class, 'destroy']);
