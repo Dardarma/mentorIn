@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Hasil_mentoring extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'hasil',
+        'feedback',
+        'jadwal_id',
+        'todo_id'
+    ];
 }

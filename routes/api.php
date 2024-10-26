@@ -80,3 +80,9 @@ Route::prefix('jadwal')->group(function (){
     Route::put('/update/{id}', [JadwalController::class, 'update']);
     Route::delete('delete/{id}', [JadwalController::class, 'destroy']);
 });
+Route::prefix('hasil')->group(function (){
+    Route::get('/', [HasilController::class, 'index']);
+    Route::post('/tambah', [HasilController::class, 'store']);
+    Route::put('/update/{id}', [HasilController::class, 'update']);
+    Route::delete('delete/{id}', [HasilController::class, 'destroy']);
+});

@@ -129,7 +129,7 @@ class JadwalService{
     }
 
     /**
-     * delete role
+     * delete jadwal
      *
      * @param  mixed $id
      * @return array

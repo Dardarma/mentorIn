@@ -30,7 +30,7 @@ class HasilService
     }
 
     /**
-     * create new user
+     * create Hasil
      *
      * @param  array $payload
      * @return array status and warning
@@ -44,8 +44,7 @@ class HasilService
                 'tipe_todo' => 'PAST',
             ]);
             $hasil = Hasil_mentoring::create([
-                'id_materi' => $payload['id_materi'],
-                'hasil_mentoring' => $payload['hasil_mentoring'],
+                'hasil' => $payload['hasil'],
                 'feedback' => $payload['feedback'],
                 'jadwal_id' => $payload['jadwal_id'],
                 'todo_id' => $todo->id,
@@ -65,6 +64,7 @@ class HasilService
             ];
         }
     }
+
     public static function getByJadwalId($jadwal_id): array
     {
         try {
@@ -85,7 +85,7 @@ class HasilService
     }
 
     /**
-     * edit jadwal
+     * edit Hasil
      *
      * @param  mixed $payload
      * @param  mixed $id
@@ -103,10 +103,8 @@ class HasilService
                 ];
             } else {
                 $update_data = [
-                    'id_materi' => $payload['id_materi'],
                     'hasil_mentoring' => $payload['hasil_mentoring'],
                     'feedback' => $payload['feedback'],
-                    'jadwal_id' => $payload['jadwal_id'],
                 ];
                 $data->update($update_data);
                 DB::commit();
@@ -115,6 +113,38 @@ class HasilService
                     'data'   => $data,
                 ];
             }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return [
+                'status' => false,
+                'errors' => $th->getMessage(),
+            ];
+        }
+    }
+     /**
+     * delete hasil
+     *
+     * @param  mixed $id
+     * @return array
+     */
+    public static function delete($id): array
+    {
+        DB::beginTransaction();
+        try {
+            $data = Hasil_mentoring::where('id', $id)->first();
+            if (empty($data)) {
+                return [
+                    'status' => false,
+                    'errors' => "not found",
+                ];
+            }
+            $data->delete();
+
+            DB::commit();
+            return [
+                'status' => true,
+                'data'   => true,
+            ];
         } catch (\Throwable $th) {
             DB::rollBack();
             return [
