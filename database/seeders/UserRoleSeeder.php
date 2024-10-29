@@ -19,12 +19,15 @@ class UserRoleSeeder extends Seeder
         $roleMentor = \App\Models\Role::where('role_name', 'Mentor')->first();
 
         foreach ($users as $key => $user) {
-            if ($user->username != 'user') {
-                $this->createData($user, $roleAdmin, $admin);
-            }
-            $this->createData($user, $roleUser, $admin);
-            if ($user->username == 'mentor') { 
+            if ($user->username == 'mentor') {
+                // Jika user adalah mentor, hanya tambahkan role Mentor
                 $this->createData($user, $roleMentor, $admin);
+            } elseif ($user->username != 'user') {
+                // Jika user bukan 'mentor' atau 'user', tambahkan role Administrator
+                $this->createData($user, $roleAdmin, $admin);
+            } else {
+                // Jika user lainnya, tambahkan role User
+                $this->createData($user, $roleUser, $admin);
             }
         }
     }
