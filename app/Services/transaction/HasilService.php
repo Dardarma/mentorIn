@@ -17,7 +17,11 @@ class HasilService
      */
     public static function dataAll()
     {
-        return Hasil_mentoring::query();
+        $data = Hasil_mentoring::query()->get();
+        return [
+            'status' => true,
+            'data' => $data,
+        ];
     }
     public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
     {
