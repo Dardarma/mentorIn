@@ -18,7 +18,16 @@ class JadwalService{
      */
     public static function dataAll()
     {
-        return Jadwal::query();
+        $data = Jadwal::query()
+        ->with('user:user_id,name')
+        ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
+        ->with('todo:id,todo,tipe_todo')
+        ->with('materi:id,materi')
+        ->get();
+        return [
+            'status' => true,
+            'data' => $data
+        ];
     }
     public static function getAllPaginate(/*$filter = []*/ $page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
     {
