@@ -21,7 +21,7 @@ class JadwalService{
         $data = Jadwal::query()
         ->with('user:user_id,name')
         ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
-        ->with('todo:id,todo,tipe_todo')
+        ->with('todo:id,todo,tipe')
         ->with('materi:id,materi')
         ->get();
         return [
@@ -55,7 +55,7 @@ class JadwalService{
             ]);
             $todo = Todo::create([
                 'todo' => $payload['todo'],
-                'tipe_todo' => 'PRA',
+                'tipe' => 'PRA',
             ]);
             $hasil = Jadwal::create([
                 'tanggal_mentoring' => $payload['tanggal_mentoring'],
