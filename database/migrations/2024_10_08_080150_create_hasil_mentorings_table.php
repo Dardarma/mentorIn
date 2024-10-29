@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('hasil_mentorings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('materi_id');
             $table->text('hasil');
             $table->text('feedback');
             $table->unsignedBigInteger('jadwal_id');
             $table->unsignedBigInteger('todo_id');
             $table->timestamps();
-
-            $table->foreign('materi_id')->references('id')->on('materi_mentorings');
+            
             $table->foreign('jadwal_id')->references('id')->on('jadwals');
             $table->foreign('todo_id')->references('id')->on('to_do');
         });

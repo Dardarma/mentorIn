@@ -83,5 +83,15 @@ class MenuMasterSeeder extends Seeder
             'menu_master_slug' => 'konfigurasi',
             'created_by' => $user->user_id,
         ]);
+        \App\Models\MenuMaster::create([
+            'menu_master_name' => 'Jadwal',
+            'menu_master_type' => 'MENU',
+            'menu_master_icon' => null,
+            'menu_master_link' => 'jadwal',
+            'menu_master_urutan' => 5,
+            'menu_master_parent' => 3,
+            'menu_master_slug' => 'jadwal',
+            'created_by' => $user->user_id,
+        ]);
     }
 }

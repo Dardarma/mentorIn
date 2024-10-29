@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamp('tanggal_mulai');
             $table->timestamp('tanggal_akhir');
-            $table->timestamp('lama_magang');
+            $table->integer('durasi_magang(bulan)');
             $table->timestamps();
         });
     }
