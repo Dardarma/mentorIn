@@ -15,13 +15,17 @@ class UserRoleSeeder extends Seeder
         $admin = \App\Models\User::first();
         $users = \App\Models\User::all();
         $roleUser = \App\Models\Role::where('role_name', 'User')->first();
-        $roleAdmin = \App\Models\Role::first();
+        $roleAdmin = \App\Models\Role::where('role_name', 'Administrator')->first();
+        $roleMentor = \App\Models\Role::where('role_name', 'Mentor')->first();
 
         foreach ($users as $key => $user) {
             if ($user->username != 'user') {
                 $this->createData($user, $roleAdmin, $admin);
             }
             $this->createData($user, $roleUser, $admin);
+            if ($user->username == 'mentor') { 
+                $this->createData($user, $roleMentor, $admin);
+            }
         }
     }
 

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +14,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // $mentorRole = Role::where('role_name', 'Mentor')->first();
+        // $mentor = User::whereHas('userRole', function ($query) use ($mentorRole) {
+        //     $query->where('role_id', $mentorRole->role_id);
+        // })->first();
         \App\Models\User::create([
             'username'   => 'smartsoft',
             'password'   => bcrypt("admin"),
@@ -24,9 +30,16 @@ class UserSeeder extends Seeder
             'name'       => 'Admin Smartsoft 2',
         ]);
         \App\Models\User::create([
+            'username'  => 'mentor',
+            'password'   => bcrypt("admin"),
+            'name'       => 'mentor',
+        ]);
+        \App\Models\User::create([
             'username'  => 'user',
             'password'   => bcrypt("admin"),
             'name'       => 'user',
+            'mentor_id' => '3',
+            'periode_id' => '1'
         ]);
     }
 }

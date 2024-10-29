@@ -25,5 +25,11 @@ class RoleSeeder extends Seeder
             'created_by' => $admin->user_id,
             'updated_by' => $admin->user_id,
         ]);
+        \App\Models\Role::create([
+            'role_name' => "Mentor",
+            'role_description' => 'Role ini sebagai Mentor',
+            'created_by' => $admin->user_id,
+            'updated_by' => $admin->user_id,
+        ]);
     }
 }
