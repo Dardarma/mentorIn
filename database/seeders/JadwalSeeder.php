@@ -16,6 +16,7 @@ class JadwalSeeder extends Seeder
         Jadwal::create([
             'tanggal_mentoring' => '2025-01-01',
             'jam_mentoring' => '00:00:00',
+            'status' => true,
             'todo_id' => '1',
             'user_id' => '3',
             'mentor_id' => '4',
