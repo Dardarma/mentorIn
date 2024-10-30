@@ -77,7 +77,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('jadwal')->group(function (){
         Route::get('/index', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
         Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_read']);
+        Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_read']);
         Route::put('/update/{id}', [JadwalTestController::class, 'update']);
     });
 });

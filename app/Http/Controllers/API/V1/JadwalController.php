@@ -29,7 +29,7 @@ class JadwalController extends Controller
     {
         $mentorId = auth()->id(); // Dapatkan ID mentor yang sedang login
 
-        $users = User::where('mentor_id', $mentorId)->get(['id', 'name']); // Ambil user dengan mentor_id sesuai ID mentor
+        $users = User::where('mentor_id', $mentorId)->get(['user_id', 'name']); // Ambil user dengan mentor_id sesuai ID mentor
 
         return response()->json($users);
     }
