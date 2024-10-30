@@ -22,7 +22,7 @@ class JadwalTestController extends Controller
         $page = $request->input('page', 1);
         $per_page = $request->input('per_page', 10);
 
-        $data = JadwalService::getAllPaginate($page, $per_page, $sort_field, $sort_order);
+        $data = JadwalService::dataAll($page, $per_page, $sort_field, $sort_order);
         return ResponseFormatter::success($data["data"], 'Get data successful');
     }
 

@@ -9,7 +9,8 @@ use App\Models\Todo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class JadwalService{
+class JadwalService
+{
     /**
      * return model query
      *
@@ -19,25 +20,25 @@ class JadwalService{
     public static function dataAll()
     {
         $data = Jadwal::query()
-        ->with('user:user_id,name')
-        ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
-        ->with('todo:id,todo,tipe')
-        ->with('materi:id,materi')
-        ->get();
+            ->with('user:user_id,name')
+            ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
+            ->with('todo:id,todo,tipe')
+            ->with('materi:id,materi')
+            ->get();
         return [
             'status' => true,
             'data' => $data
         ];
     }
-    public static function getAllPaginate(/*$filter = []*/ $page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
-    {
-        $query = Jadwal::query();
-        $data = $query->paginate($per_page, ['*'], 'page', $page)->appends('per_page', $per_page);
-        return [
-            'status' => true,
-            'data' => $data,
-        ];
-    }
+    // public static function getAllPaginate(/*$filter = []*/ $page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
+    // {
+    //     $query = Jadwal::query();
+    //     $data = $query->paginate($per_page, ['*'], 'page', $page)->appends('per_page', $per_page);
+    //     return [
+    //         'status' => true,
+    //         'data' => $data,
+    //     ];
+    // }
 
     /**
      * create new jadwal
@@ -115,19 +116,38 @@ class JadwalService{
                     'status' => false,
                     'errors' => "not found",
                 ];
-            } else{
-                $update_data = [
-                    'tanggal_mentoring' => $payload['tanggal_mentoring'],
-                    'jam_mentoring' => $payload['jam_mentoring'],
-                    'status' => $payload['status']
-                ];
-                $data->update($update_data);
-                DB::commit();
+            }
+            $todo = Todo::where('id', $payload['todo_id'])->first();
+            $materi = Materi_mentoring::where('id', $payload['materi_id'])->first();
+            if (empty($todo) || empty($materi)) {
                 return [
-                    'status' => true,
-                    'data'   => $data,
+                    'status' => false,
+                    'errors' => "Todo or Materi not found",
                 ];
             }
+            $todo->update([
+                'todo' => $payload['todo'],
+                'tipe' => 'PRA',
+            ]);
+            $materi->update([
+                'materi' => $payload['materi'],
+                'description' => $payload['deskripsi']
+            ]);
+            $update_data = [
+                'tanggal_mentoring' => $payload['tanggal_mentoring'],
+                'jam_mentoring' => $payload['jam_mentoring'],
+                'status' => false,
+                'todo_id' => $todo->id,
+                'user_id' => $payload['user_id'],
+                'mentor_id' => $payload['mentor_id'],
+                'materi_id' => $materi->id,
+            ];
+            $data->update($update_data);
+            DB::commit();
+            return [
+                'status' => true,
+                'data'   => $data,
+            ];
         } catch (\Throwable $th) {
             DB::rollBack();
             return [
