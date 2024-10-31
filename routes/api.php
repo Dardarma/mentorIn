@@ -8,6 +8,7 @@ use App\Http\Controllers\API\V1\UserController;
 use App\Http\Controllers\API\V1\HasilController;
 use App\Http\Controllers\API\V1\JadwalController;
 use App\Http\Controllers\API\V1\JadwalTestController;
+use App\Http\Controllers\API\V1\PeriodeController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -79,6 +80,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
         Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_read']);
         Route::put('/update/{id}', [JadwalTestController::class, 'update']);
+    });
+    Route::prefix('periode')->group(function () {
+        Route::get('/', [PeriodeController::class, 'index']); 
+        Route::post('/', [PeriodeController::class, 'store']); 
+        Route::put('/{id}', [PeriodeController::class, 'update']); 
+        Route::delete('/{id}', [PeriodeController::class, 'destroy']); 
     });
 });
 

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
 use App\Services\PeriodeService;
 use App\Helpers\ResponseFormatter;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class PeriodeController extends Controller

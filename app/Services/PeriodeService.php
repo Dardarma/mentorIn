@@ -50,7 +50,7 @@ class PeriodeService
         try {
             $periode = Periode::create([
                 'tanggal_mulai' => $payload['tanggal_mulai'],
-                'tanggal_akhir' => $payload['tanggal_akhir'], // Menggunakan tanggal_akhir
+                'tanggal_akhir' => $payload['tanggal_akhir'],
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
             DB::commit();
