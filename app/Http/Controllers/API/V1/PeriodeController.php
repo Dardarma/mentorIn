@@ -15,12 +15,16 @@ class PeriodeController extends Controller
      */
     public function index(Request $request)
     {
+        $filter = [
+            'search' => $request->input('search')
+        ];
+
         $sort_field = $request->input('sort_field', 'created_at');
         $sort_order = $request->input('sort_order', 'desc');
         $page = $request->input('page', 1);
         $per_page = $request->input('per_page', 10);
 
-        $data = PeriodeService::getAllPaginate($page, $per_page, $sort_field, $sort_order);
+        $data = PeriodeService::getAllPaginate($page, $per_page, $sort_field, $sort_order,$filter);
         return ResponseFormatter::success($data["data"], 'Data berhasil diambil');
     }
 
@@ -32,14 +36,17 @@ class PeriodeController extends Controller
         $payload = [
             'tanggal_mulai' => $request->input('tanggal_mulai'),
             'tanggal_akhir' => $request->input('tanggal_akhir'),
+            'durasi_magang' => $request->input('durasi_magang'),
         ];
 
         $validate = Validator::make($payload, [
             'tanggal_mulai' => 'required|date',
             'tanggal_akhir' => 'required|date|after_or_equal:tanggal_mulai',
+            'durasi_magang' => 'required|integer',
         ], [
             'required' => ':attribute wajib diisi',
             'date' => ':attribute harus berupa tanggal yang valid',
+            'integer' => ':attribute harus berupa angka',
             'after_or_equal' => 'Tanggal akhir harus sama atau setelah tanggal mulai'
         ]);
 
@@ -65,14 +72,17 @@ class PeriodeController extends Controller
         $payload = [
             'tanggal_mulai' => $request->input('tanggal_mulai'),
             'tanggal_akhir' => $request->input('tanggal_akhir'),
+            'durasi_magang' => $request->input('durasi_magang'),
         ];
 
         $validate = Validator::make($payload, [
             'tanggal_mulai' => 'required|date',
             'tanggal_akhir' => 'required|date|after_or_equal:tanggal_mulai',
+            'durasi_magang' => 'required|integer',
         ], [
             'required' => ':attribute wajib diisi',
             'date' => ':attribute harus berupa tanggal yang valid',
+            'integer' => ':attribute harus berupa angka',
             'after_or_equal' => 'Tanggal akhir harus sama atau setelah tanggal mulai'
         ]);
 
@@ -97,6 +107,7 @@ class PeriodeController extends Controller
      */
     public function destroy(string $id)
     {
+        $datadihapus = PeriodeService::getById($id);
         $data = PeriodeService::delete($id);
         if (!$data['status']) {
             $errorCode = $data['errors'] == 'Periode tidak ditemukan' ? 404 : 400;
@@ -105,6 +116,6 @@ class PeriodeController extends Controller
             ], 'Gagal menghapus data', $errorCode);
         }
 
-        return ResponseFormatter::success($data['data'], 'Data berhasil dihapus');
+        return ResponseFormatter::success($data['data'], $datadihapus , 'Data berhasil dihapus');
     }
 }

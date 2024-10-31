@@ -83,9 +83,9 @@ Route::prefix('v1')->group(function () {
     });
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 
-        Route::post('/', [PeriodeController::class, 'store']); 
-        Route::put('/{id}', [PeriodeController::class, 'update']); 
-        Route::delete('/{id}', [PeriodeController::class, 'destroy']); 
+        Route::post('/add', [PeriodeController::class, 'store']); 
+        Route::put('/edit/{id}', [PeriodeController::class, 'update']); 
+        Route::delete('/delete/{id}', [PeriodeController::class, 'destroy']); 
     });
 });
 
