@@ -15,13 +15,15 @@ use Illuminate\Support\Facades\Validator;
 class JadwalController extends Controller
 {
     //show jadwal
-    public function index()
+    public function index(Request $request)
     {
-        $jadwal = JadwalService::dataAll();
-        $data = [
-            'jadwal' => $jadwal['data']
-        ];
-        return ResponseFormatter::success($data, 'get data successfull');
+        $sort_field = $request->input('sort_field', 'created_at');
+        $sort_order = $request->input('sort_order', 'desc');
+        $page = $request->input('page', 1);
+        $per_page = $request->input('per_page', 10);
+
+        $jadwal = JadwalService::getAllPaginate($page, $per_page, $sort_field, $sort_order);
+        return ResponseFormatter::success($jadwal["data"], 'Get data successful');
     }
 
     //mengambil user untuk dropdown 

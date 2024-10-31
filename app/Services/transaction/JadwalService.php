@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use App\Models\Materi_mentoring;
 use App\Models\Todo;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class JadwalService
@@ -19,26 +20,45 @@ class JadwalService
      */
     public static function dataAll()
     {
-        $data = Jadwal::query()
-            ->with('user:user_id,name')
-            ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
-            ->with('todo:id,todo,tipe')
-            ->with('materi:id,materi')
-            ->get();
+        $data = Jadwal::query();
         return [
             'status' => true,
             'data' => $data
         ];
     }
-    // public static function getAllPaginate(/*$filter = []*/ $page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
-    // {
-    //     $query = Jadwal::query();
-    //     $data = $query->paginate($per_page, ['*'], 'page', $page)->appends('per_page', $per_page);
-    //     return [
-    //         'status' => true,
-    //         'data' => $data,
-    //     ];
-    // }
+    public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
+    {
+        $userId = Auth::id();
+        $roleId = DB::table('user_roles')
+            ->where('user_id', $userId)
+            ->value('role_id');
+        $query = Jadwal::query()
+            ->where(function ($query) use ($roleId, $userId) {
+                if ($roleId === 1) {
+                    return; 
+                }
+                $query->where('user_id', Auth::id())
+                    ->orWhere('mentor_id', Auth::id()); 
+            });
+        if (!$query->exists()) {
+            return [
+                'status' => false,
+                'data' => 'Data tidak ada',
+            ];
+        }
+        $data = $query->with('user:user_id,name')
+            ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
+            ->with('todo:id,todo,tipe')
+            ->with('materi:id,materi')
+            ->orderBy($sort_field, $sort_order)
+            ->paginate($per_page, ['*'], 'page', $page)
+            ->appends('per_page', $per_page);
+
+        return [
+            'status' => true,
+            'data' => $data,
+        ];
+    }
 
     /**
      * create new jadwal
