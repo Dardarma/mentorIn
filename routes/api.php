@@ -5,9 +5,12 @@ use App\Http\Controllers\API\V1\MenuController;
 use App\Http\Controllers\API\V1\ReferenceController;
 use App\Http\Controllers\API\V1\RoleController;
 use App\Http\Controllers\API\V1\UserController;
+use App\Http\Controllers\API\V1\HasilController;
+
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeriodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,4 +74,29 @@ Route::prefix('v1')->group(function () {
         Route::get('/get-role-option', [ReferenceController::class, 'getRoleOption'])->middleware(['auth.api']);
         Route::get('/get-menu-access', [ReferenceController::class, 'getMenuAccess'])->middleware(['auth.api']);
     });
+    
+
+    Route::prefix('periode')->group(function () {
+        Route::get('/', [PeriodeController::class, 'index']); // Hapus middleware 'auth.api'
+        Route::post('/', [PeriodeController::class, 'store']); // Hapus middleware 'auth.api'
+        Route::put('/{id}', [PeriodeController::class, 'update']); // Hapus middleware 'auth.api'
+        Route::delete('/{id}', [PeriodeController::class, 'destroy']); // Hapus middleware 'auth.api'
+    });
 });
+
+
+
+
+// Route::prefix('jadwaltest')->group(function (){
+//     Route::get('/', [JadwalTestController::class, 'index'])->middleware(['auth.api']);
+//     Route::post('/tambah', [JadwalTestController::class, 'store']);
+//     Route::put('/update/{id}', [JadwalTestController::class, 'update']);
+//     Route::delete('delete/{id}', [JadwalTestController::class, 'destroy']);
+// });
+
+// Route::prefix('hasil')->group(function (){
+//     Route::get('/', [HasilController::class, 'index']);
+//     Route::post('/tambah', [HasilController::class, 'store']);
+//     Route::put('/update/{id}', [HasilController::class, 'update']);
+//     Route::delete('delete/{id}', [HasilController::class, 'destroy']);
+// });
