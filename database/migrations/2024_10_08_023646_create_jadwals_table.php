@@ -22,10 +22,10 @@ return new class extends Migration
             $table->unsignedBigInteger('materi_id');
             $table->timestamps();
 
-            $table->foreign('todo_id')->references('id')->on('to_do');
+            $table->foreign('todo_id')->references('id')->on('to_do')->onDelete('cascade');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->foreign('mentor_id')->references('user_id')->on('users');
-            $table->foreign('materi_id')->references('id')->on('materi_mentorings');
+            $table->foreign('materi_id')->references('id')->on('materi_mentorings')->onDelete('cascade');;
         });
     }
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
             
             $table->foreign('jadwal_id')->references('id')->on('jadwals');
-            $table->foreign('todo_id')->references('id')->on('to_do');
+            $table->foreign('todo_id')->references('id')->on('to_do')->onDelete('cascade');
         });
     }
 
