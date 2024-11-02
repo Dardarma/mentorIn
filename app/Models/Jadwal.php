@@ -17,10 +17,10 @@ class Jadwal extends Model
         return $this->hasMany(Hasil_mentoring::class, 'jadwal_id');
     }
     public function todo(){
-        return $this->belongsTo(Todo::class, 'id');
+        return $this->belongsTo(Todo::class, 'todo_id');
     }
     public function materi(){
-        return $this->belongsTo(Materi_mentoring::class, 'id');
+        return $this->belongsTo(Materi_mentoring::class, 'materi_id');
     }
     protected $fillable = [
         'tanggal_mentoring',

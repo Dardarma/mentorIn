@@ -35,10 +35,10 @@ class JadwalService
         $query = Jadwal::query()
             ->where(function ($query) use ($roleId, $userId) {
                 if ($roleId === 1) {
-                    return; 
+                    return;
                 }
                 $query->where('user_id', Auth::id())
-                    ->orWhere('mentor_id', Auth::id()); 
+                    ->orWhere('mentor_id', Auth::id());
             });
         if (!$query->exists()) {
             return [
@@ -49,7 +49,7 @@ class JadwalService
         $data = $query->with('user:user_id,name')
             ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
             ->with('todo:id,todo,tipe')
-            ->with('materi:id,materi')
+            ->with('materi:id,materi,description')
             ->orderBy($sort_field, $sort_order)
             ->paginate($per_page, ['*'], 'page', $page)
             ->appends('per_page', $per_page);
@@ -106,7 +106,7 @@ class JadwalService
     public static function getById($id): array
     {
         try {
-            $data = Jadwal::where("id", $id)->first();
+            $data = Jadwal::with(['todo', 'materi'])->where("id", $id)->first();
             return [
                 'status' => true,
                 'data'   => $data,
@@ -137,22 +137,27 @@ class JadwalService
                     'errors' => "not found",
                 ];
             }
-            $todo = Todo::where('id', $payload['todo_id'])->first();
-            $materi = Materi_mentoring::where('id', $payload['materi_id'])->first();
+            $todo = Todo::find($data->todo_id);
+            $materi = Materi_mentoring::find($data->materi_id);
             if (empty($todo) || empty($materi)) {
                 return [
                     'status' => false,
                     'errors' => "Todo or Materi not found",
                 ];
             }
+            //update todo
             $todo->update([
                 'todo' => $payload['todo'],
-                'tipe' => 'PRA',
+                'tipe' => 'PRA'
             ]);
+            DB::commit();
+            //update materi
             $materi->update([
                 'materi' => $payload['materi'],
-                'description' => $payload['deskripsi']
+                'description' => $payload['deskripsi'],
             ]);
+            DB::commit();
+
             $update_data = [
                 'tanggal_mentoring' => $payload['tanggal_mentoring'],
                 'jam_mentoring' => $payload['jam_mentoring'],
@@ -167,6 +172,8 @@ class JadwalService
             return [
                 'status' => true,
                 'data'   => $data,
+                'todo' => $todo,
+                'materi' => $materi
             ];
         } catch (\Throwable $th) {
             DB::rollBack();

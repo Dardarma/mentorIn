@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\V1;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Jadwal;
+use App\Models\Materi_mentoring;
+use App\Models\Todo;
 use App\Models\User;
 use App\Services\Transaction\HasilService;
 use App\Services\Transaction\JadwalService;
@@ -83,27 +85,42 @@ class JadwalController extends Controller
         }
         return ResponseFormatter::success($data['data'], 'create data successful');
     }
-    
+
+    public function getbyid($id)
+    {
+        $response = JadwalService::getById($id);
+
+        if ($response['status']) {
+            return ResponseFormatter::success($response['data'], 'Data retrieved successfully');
+        } else {
+            return ResponseFormatter::error(null, $response['errors'], 404);
+        }
+    }
     //update jadwal
     public function update(Request $request, string $id)
     {
-        $payload = [
-            'todo' => $request->input('todo'),
-            'materi' => $request->input('materi'),
-            'deskripsi' => $request->input('deskripsi'),
+        $payloadJadwal = [
             'tanggal_mentoring' => $request->input('tanggal_mentoring'),
             'jam_mentoring' => $request->input('jam_mentoring'),
             'user_id' => $request->input('user_id'),
-            'mentor_id' => auth()->user()->user_id
+            'mentor_id' => auth()->user()->user_id,
         ];
-        $validate = Validator::make($payload, [
+        $payloadTodo = [
+            'todo' => $request->input('todo'),
+            'tipe' => 'PRA',
+        ];
+        $payloadMateri = [
+            'materi' => $request->input('materi'),
+            'description' => $request->input('deskripsi'),
+        ];
+        $validate = Validator::make(array_merge($payloadJadwal, $payloadTodo, $payloadMateri), [
             'todo' => 'required|string',
             'tanggal_mentoring' => 'required|date',
             'jam_mentoring' => 'required',
             'user_id' => 'required|integer',
             'mentor_id' => 'required|integer',
             'materi' => 'required',
-            'deskripsi' => 'string'
+            'deskripsi' => 'string',
         ], [
             'required' => ':attribute harus diisi',
             'string' => ':attribute harus berupa string',
@@ -118,6 +135,7 @@ class JadwalController extends Controller
             'materi' => 'Materi',
             'deskripsi' => 'Deskripsi'
         ]);
+        
 
         if ($validate->fails()) {
             return ResponseFormatter::error([
@@ -128,22 +146,33 @@ class JadwalController extends Controller
         // Begin transaction
         DB::beginTransaction();
         try {
-            // Find the jadwal by ID
             $jadwal = Jadwal::where('id', $id)->first();
             if (empty($jadwal)) {
                 DB::rollBack();
                 return ResponseFormatter::error("Jadwal not found", 'update data unsuccessful', 404);
             }
+            $todo = Todo::find($jadwal->todo_id);
+            $materi = Materi_mentoring::find($jadwal->materi_id);
+            if (empty($todo) || empty($materi)) {
+                DB::rollBack();
+                return ResponseFormatter::error("Todo or Materi not found", 'update data unsuccessful', 404);
+            }
 
             // Update jadwal data
-            $jadwal->update($payload);
+            $jadwal->update($payloadJadwal);
+            $todo->update($payloadTodo);
+            $materi->update($payloadMateri);
+
 
             DB::commit();
-            return ResponseFormatter::success($jadwal, 'update data successful');
+            return ResponseFormatter::success([
+                'jadwal' => $jadwal,
+                'todo' => $todo,
+                'materi' => $materi
+            ], 'update data successful');
         } catch (\Throwable $th) {
             DB::rollBack();
             return ResponseFormatter::error($th->getMessage(), 'update data unsuccessful', 500);
         }
     }
-
 }

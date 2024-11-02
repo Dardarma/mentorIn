@@ -12,4 +12,8 @@ class Materi_mentoring extends Model
         'materi',
         'description'
     ];
+    public function jadwal()
+    {
+        return $this->hasOne(Jadwal::class, 'materi_id', 'id');
+    }
 }

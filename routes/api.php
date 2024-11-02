@@ -77,15 +77,16 @@ Route::prefix('v1')->group(function () {
     });
     Route::prefix('jadwal')->group(function (){
         Route::get('/index', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api']);
+        Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
         Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_read']);
-        Route::put('/update/{id}', [JadwalTestController::class, 'update']);
+        Route::get('/getid/{id}', [JadwalController::class, 'getbyid'])->middleware(['auth.api:jadwal_read']);
+        Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:jadwal_read']);
     });
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 
-        Route::post('/', [PeriodeController::class, 'store']); 
-        Route::put('/{id}', [PeriodeController::class, 'update']); 
-        Route::delete('/{id}', [PeriodeController::class, 'destroy']); 
+        Route::post('/add', [PeriodeController::class, 'store']); 
+        Route::put('/update/{id}', [PeriodeController::class, 'update']); 
+        Route::delete('/delete/{id}', [PeriodeController::class, 'destroy']); 
     });
 });
 

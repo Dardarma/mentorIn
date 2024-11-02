@@ -11,6 +11,10 @@ class Todo extends Model
     use HasFactory;
     protected $fillable = [
         'todo',
-        'tipe_todo'
+        'tipe'
     ];
+    public function jadwal()
+    {
+        return $this->hasOne(Jadwal::class, 'todo_id', 'id');
+    }
 }

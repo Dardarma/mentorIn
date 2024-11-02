@@ -88,9 +88,19 @@ class MenuMasterSeeder extends Seeder
             'menu_master_type' => 'MENU',
             'menu_master_icon' => null,
             'menu_master_link' => 'jadwal',
-            'menu_master_urutan' => 5,
+            'menu_master_urutan' => 4,
             'menu_master_parent' => 0,
             'menu_master_slug' => 'jadwal',
+            'created_by' => $user->user_id,
+        ]);
+        \App\Models\MenuMaster::create([
+            'menu_master_name' => 'Periode',
+            'menu_master_type' => 'MENU',
+            'menu_master_icon' => null,
+            'menu_master_link' => 'periode',
+            'menu_master_urutan' => 5,
+            'menu_master_parent' => 3,
+            'menu_master_slug' => 'periode',
             'created_by' => $user->user_id,
         ]);
     }
