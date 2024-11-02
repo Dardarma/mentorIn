@@ -195,13 +195,27 @@ class JadwalService
         DB::beginTransaction();
         try {
             $data = Jadwal::where('id', $id)->first();
+            $todo = Todo::where('id', $data->todo_id)->first();
+            $materi = Materi_mentoring::where('id', $data->materi_id)->first();
             if (empty($data)) {
                 return [
                     'status' => false,
-                    'errors' => "not found",
+                    'errors' => "jadwal not found",
+                ];
+            }if(empty($todo)){
+                return [
+                    'status' => false,
+                    'errors' => "todo not found",
+                ];
+            }if(empty($materi)){
+                return [
+                    'status' => false,
+                    'errors' => "materi not found",
                 ];
             }
             $data->delete();
+            $todo->delete();
+            $materi->delete();
 
             DB::commit();
             return [

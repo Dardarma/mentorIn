@@ -78,9 +78,10 @@ Route::prefix('v1')->group(function () {
     Route::prefix('jadwal')->group(function (){
         Route::get('/index', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
         Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
-        Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_read']);
         Route::get('/getid/{id}', [JadwalController::class, 'getbyid'])->middleware(['auth.api:jadwal_read']);
-        Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:jadwal_read']);
+        Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_create']);
+        Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:jadwal_update']);
+        Route::delete('/delete/{id}', [JadwalController::class, 'destroy'])->middleware(['auth.api:jadwal_delete']);
     });
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 

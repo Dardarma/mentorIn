@@ -175,4 +175,16 @@ class JadwalController extends Controller
             return ResponseFormatter::error($th->getMessage(), 'update data unsuccessful', 500);
         }
     }
+
+    public function destroy(string $id){
+        $data = JadwalService::delete($id);
+        if (!$data['status']) {
+            $erroCode = $data['errors'] == 'Not Found' ? 404 : 400;
+            return ResponseFormatter::error([
+                'errors' => $data['errors'],
+            ], 'delete data unsuccessful', $erroCode);
+        }
+
+        return ResponseFormatter::success($data['data'], 'Successfully delete data');
+    }
 }
