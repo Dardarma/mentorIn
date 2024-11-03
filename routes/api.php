@@ -76,7 +76,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/get-menu-access', [ReferenceController::class, 'getMenuAccess'])->middleware(['auth.api']);
     });
     Route::prefix('jadwal')->group(function (){
-        Route::get('/index', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
+        Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
         Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
         Route::get('/getid/{id}', [JadwalController::class, 'getbyid'])->middleware(['auth.api:jadwal_read']);
         Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_create']);
@@ -89,21 +89,9 @@ Route::prefix('v1')->group(function () {
         Route::put('/update/{id}', [PeriodeController::class, 'update']); 
         Route::delete('/delete/{id}', [PeriodeController::class, 'destroy']); 
     });
+    Route::prefix('hasil')->group(function (){
+        Route::post('/tambah', [HasilController::class, 'store']);
+        Route::put('/update/{id}', [HasilController::class, 'update']);
+        Route::delete('delete/{id}', [HasilController::class, 'destroy']);
+    });
 });
-
-
-
-
-// Route::prefix('jadwaltest')->group(function (){
-//     Route::get('/', [JadwalTestController::class, 'index'])->middleware(['auth.api']);
-//     Route::post('/tambah', [JadwalTestController::class, 'store']);
-//     Route::put('/update/{id}', [JadwalTestController::class, 'update']);
-//     Route::delete('delete/{id}', [JadwalTestController::class, 'destroy']);
-// });
-
-// Route::prefix('hasil')->group(function (){
-//     Route::get('/', [HasilController::class, 'index']);
-//     Route::post('/tambah', [HasilController::class, 'store']);
-//     Route::put('/update/{id}', [HasilController::class, 'update']);
-//     Route::delete('delete/{id}', [HasilController::class, 'destroy']);
-// });
