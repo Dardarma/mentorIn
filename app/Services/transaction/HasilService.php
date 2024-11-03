@@ -9,29 +9,31 @@ use Illuminate\Support\Facades\DB;
 
 class HasilService
 {
-    /**
-     * return model query
-     *
-     * @param  null
-     * @return object query model
-     */
-    public static function dataAll()
-    {
-        $data = Hasil_mentoring::query()->get();
-        return [
-            'status' => true,
-            'data' => $data,
-        ];
-    }
-    public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
-    {
-        $query = Hasil_mentoring::query();
-        $data = $query->paginate($per_page, ['*'], 'page', $page)->appends('per_page', $per_page);
-        return [
-            'status' => true,
-            'data' => $data,
-        ];
-    }
+    // /**
+    //  * return model query
+    //  *
+    //  * @param  null
+    //  * @return object query model
+    //  */
+    // public static function dataAll()
+    // {
+    //     $data = Hasil_mentoring::query()->get();
+    //     return [
+    //         'status' => true,
+    //         'data' => $data,
+    //     ];
+    // }
+    // public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
+    // {
+    //     $query = Hasil_mentoring::query();
+    //     $data = $query->with('todo:id,todo,tipe')
+    //     ->paginate($per_page, ['*'], 'page', $page)
+    //     ->appends('per_page', $per_page);
+    //     return [
+    //         'status' => true,
+    //         'data' => $data,
+    //     ];
+    // }
 
     /**
      * create Hasil
@@ -105,16 +107,30 @@ class HasilService
                     'status' => false,
                     'errors' => "not found",
                 ];
-            } else {
+            } 
+            $todo = Todo::find($data->todo_id);
+            if(empty($todo)){
+                return [
+                    'status' => false,
+                    'errors' => "todo not found"
+                ];
+            } else{
+                $todo->update([
+                    'todo' => $payload['todo'],
+                    'tipe' => 'PAST'
+                ]);
                 $update_data = [
-                    'hasil_mentoring' => $payload['hasil_mentoring'],
+                    'hasil' => $payload['hasil'],
                     'feedback' => $payload['feedback'],
+                    'todo_id' => $todo->id,
+                    'jadwal_id' => $payload['jadwal'] 
                 ];
                 $data->update($update_data);
                 DB::commit();
                 return [
                     'status' => true,
                     'data'   => $data,
+                    'todo' => $todo
                 ];
             }
         } catch (\Throwable $th) {
@@ -136,12 +152,14 @@ class HasilService
         DB::beginTransaction();
         try {
             $data = Hasil_mentoring::where('id', $id)->first();
+            $todo = Todo::find($data->todo_id);
             if (empty($data)) {
                 return [
                     'status' => false,
                     'errors' => "not found",
                 ];
             }
+            $todo->delete();
             $data->delete();
 
             DB::commit();

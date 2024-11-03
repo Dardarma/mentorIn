@@ -48,6 +48,7 @@ class JadwalService
         }
         $data = $query->with('user:user_id,name')
             ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
+            ->with('hasil.todo:id,todo,tipe')
             ->with('todo:id,todo,tipe')
             ->with('materi:id,materi,description')
             ->orderBy($sort_field, $sort_order)

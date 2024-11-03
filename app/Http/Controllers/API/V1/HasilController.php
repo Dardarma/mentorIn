@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Helpers\ResponseFormatter;
 use App\Models\Hasil_mentoring;
+use App\Models\Todo;
 use App\Services\Transaction\HasilService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,16 +16,16 @@ class HasilController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        $sort_field = $request->input('sort_field', 'created_at');
-        $sort_order = $request->input('sort_order', 'desc');
-        $page = $request->input('page', 1);
-        $per_page = $request->input('per_page', 10);
+    // public function index(Request $request)
+    // {
+    //     $sort_field = $request->input('sort_field', 'created_at');
+    //     $sort_order = $request->input('sort_order', 'desc');
+    //     $page = $request->input('page', 1);
+    //     $per_page = $request->input('per_page', 10);
 
-        $data = HasilService::getAllPaginate($page, $per_page, $sort_field, $sort_order);
-        return ResponseFormatter::success($data["data"], 'Get data successful');
-    }
+    //     $data = HasilService::getAllPaginate($page, $per_page, $sort_field, $sort_order);
+    //     return ResponseFormatter::success($data["data"], 'Get data successful');
+    // }
     public function store(Request $request)
     {
         $payload = [
@@ -67,23 +68,27 @@ class HasilController extends Controller
     {
         $payload = [
             'hasil' => $request->input('hasil'),
-            'feedback' => $request->input('feedback')
+            'feedback' => $request->input('feedback'),
+            'todo' => $request->input('todo'),
+            'jadwal' => $request->input('jadwal')
         ];
 
         // Validation rules
         $validation_rules = [
             'hasil' => 'required|string',
             'feedback' => 'string',
-            // 'todo' => 'required|string'
+            'todo' => 'required|string',
+            'jadwal' => 'required'
         ];
 
         // Validation messages
         $validation_messages = [
             'hasil.required' => 'hasilnya di isi lah bos',
             'hasil.string' => 'data tidak valid bro',
-            'feedback.string' => 'data tidak valid bro'
-            // 'todo.required' => 'todonya di isi lah bos',
-            // 'todo.string' => 'data tidak valid bro',
+            'feedback.string' => 'data tidak valid bro',
+            'todo.required' => 'todonya di isi lah bos',
+            'todo.string' => 'data tidak valid bro',
+            'jadwal.required' => 'jadwal tidak ada'
         ];
 
         // Validate the request
@@ -94,26 +99,11 @@ class HasilController extends Controller
                 'error' => $validator->errors()->all(),
             ], 'validation failed', 402);
         }
-
-        // Begin transaction
-        DB::beginTransaction();
-        try {
-            // Find the jadwal by ID
-            $hasil = Hasil_mentoring::where('id', $id)->first();
-            if (empty($hasil)) {
-                DB::rollBack();
-                return ResponseFormatter::error("hasil not found", 'update data unsuccessful', 404);
-            }
-
-            // Update hasil data
-            $hasil->update($payload);
-
-            DB::commit();
-            return ResponseFormatter::success($hasil, 'update data successful');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return ResponseFormatter::error($th->getMessage(), 'update data unsuccessful', 500);
+        $data = HasilService::edit($payload, $id);
+        if (!$data['status']) {
+            return ResponseFormatter::error($data['errors'], 'update data unsuccessful');
         }
+        return ResponseFormatter::success($data['data'], 'update data successful');
     }
      /**
      * Remove the specified resource from storage.

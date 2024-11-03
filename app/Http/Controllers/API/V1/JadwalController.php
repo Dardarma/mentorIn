@@ -99,21 +99,17 @@ class JadwalController extends Controller
     //update jadwal
     public function update(Request $request, string $id)
     {
-        $payloadJadwal = [
+        $payload = [
             'tanggal_mentoring' => $request->input('tanggal_mentoring'),
             'jam_mentoring' => $request->input('jam_mentoring'),
             'user_id' => $request->input('user_id'),
             'mentor_id' => auth()->user()->user_id,
-        ];
-        $payloadTodo = [
             'todo' => $request->input('todo'),
             'tipe' => 'PRA',
-        ];
-        $payloadMateri = [
             'materi' => $request->input('materi'),
-            'description' => $request->input('deskripsi'),
+            'deskripsi' => $request->input('deskripsi'),
         ];
-        $validate = Validator::make(array_merge($payloadJadwal, $payloadTodo, $payloadMateri), [
+        $validate = Validator::make(array_merge($payload), [
             'todo' => 'required|string',
             'tanggal_mentoring' => 'required|date',
             'jam_mentoring' => 'required',
@@ -135,48 +131,22 @@ class JadwalController extends Controller
             'materi' => 'Materi',
             'deskripsi' => 'Deskripsi'
         ]);
-        
+
 
         if ($validate->fails()) {
             return ResponseFormatter::error([
                 'error' => $validate->errors()->all(),
             ], 'validation failed', 402);
         }
-
-        // Begin transaction
-        DB::beginTransaction();
-        try {
-            $jadwal = Jadwal::where('id', $id)->first();
-            if (empty($jadwal)) {
-                DB::rollBack();
-                return ResponseFormatter::error("Jadwal not found", 'update data unsuccessful', 404);
-            }
-            $todo = Todo::find($jadwal->todo_id);
-            $materi = Materi_mentoring::find($jadwal->materi_id);
-            if (empty($todo) || empty($materi)) {
-                DB::rollBack();
-                return ResponseFormatter::error("Todo or Materi not found", 'update data unsuccessful', 404);
-            }
-
-            // Update jadwal data
-            $jadwal->update($payloadJadwal);
-            $todo->update($payloadTodo);
-            $materi->update($payloadMateri);
-
-
-            DB::commit();
-            return ResponseFormatter::success([
-                'jadwal' => $jadwal,
-                'todo' => $todo,
-                'materi' => $materi
-            ], 'update data successful');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return ResponseFormatter::error($th->getMessage(), 'update data unsuccessful', 500);
+        $data = JadwalService::edit($payload, $id);
+        if (!$data['status']) {
+            return ResponseFormatter::error($data['errors'], 'create data unsuccessful');
         }
+        return ResponseFormatter::success($data['data'], 'create data successful');
     }
 
-    public function destroy(string $id){
+    public function destroy(string $id)
+    {
         $data = JadwalService::delete($id);
         if (!$data['status']) {
             $erroCode = $data['errors'] == 'Not Found' ? 404 : 400;
