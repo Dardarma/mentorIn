@@ -40,15 +40,22 @@ class UserService
                 $query->where(function ($query) use ($filter) {
                     $query->orWhere(DB::raw('LOWER(name)'), 'like', "%" . strtolower($filter['search']) . "%");
                     $query->orWhere(DB::raw('LOWER(username)'), 'like', "%" . strtolower($filter['search']) . "%");
+                    $query->orWhere(DB::raw('LOWER(asal_instansi)'), 'like', "%" . strtolower($filter['search']) . "%");
+                    $query->orWhereHas('mentor', function ($query) use ($filter) {
+                        $query->where(DB::raw('LOWER(name)'), 'like', "%" . strtolower($filter['search']) . "%");
+                    });
                 });
             });
         }
+        
 
         $query->when($sort_field, function ($q) use ($sort_field, $sort_order) {
             $q->orderBy($sort_field, $sort_order);
         });
 
-        $query->with('userRole');
+        $query->with('userRole')->with(['mentor' => function($query){
+            $query->select('user_id','name');
+        }])->with('periode');
 
         $data = $query->paginate($per_page, ['*'], 'page', $page)->appends('per_page', $per_page);
         return [
@@ -88,6 +95,9 @@ class UserService
                 'name' => $payload['name'],
                 'username' => $payload['username'],
                 'password' => Hash::make($payload['password']),
+                'asal_instansi' => $payload['asal_instansi'],
+                'mentor_id' => $payload['mentor_id'],
+                'periode_id' => $payload['periode_id'],
                 'path_photo' => $photo,
                 'status' => "ENABLE",
                 'fail_login_count' => 0,
@@ -162,8 +172,12 @@ class UserService
                     'username' => $payload['username'],
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_by' => Auth::user()->user_id,
+                    'asal_instansi' => $payload['asal_instansi'],
+                    'mentor_id' => $payload['mentor_id'],
+                    'periode_id' => $payload['periode_id'],
                 ];
 
+                
                 if ($payload['path_photo'] != "") {
                     $path_file = $payload['path_photo'];
                     $explode_file = explode("/", $path_file);
@@ -315,5 +329,19 @@ class UserService
                 'id_role' => $role_id,
             ]);
         }
+    }
+
+    public static function getMentor()
+    {
+        $data =  User::whereHas('UserRole', function ($query){
+            $query->where('role_id', 3);
+        })
+        ->select('user_id','name')
+        ->get();
+
+        return[
+            'status' => true,
+            'data' => $data
+        ];
     }
 }

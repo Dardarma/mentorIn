@@ -16,4 +16,9 @@ class periode extends Model
         'tanggal_akhir',
         'durasi_magang',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'periode_id', 'id');
+    }
 }

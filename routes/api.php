@@ -40,6 +40,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware(['auth.api']);
         Route::post('/', [UserController::class, 'store'])->middleware(['auth.api']);
         Route::put('/{id}', [UserController::class, 'update'])->middleware(['auth.api']);
+        Route::get('/mentor',[UserController::class, 'getMentor'])->middleware(['auth.api']);
     });
 
     Route::prefix('roles')->group(function () {
@@ -87,6 +88,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 
         Route::post('/add', [PeriodeController::class, 'store']); 
         Route::put('/update/{id}', [PeriodeController::class, 'update']); 
+        Route::get('/user', [PeriodeController::class, 'getAll']);
         Route::delete('/delete/{id}', [PeriodeController::class, 'destroy']); 
     });
     Route::prefix('hasil')->group(function (){

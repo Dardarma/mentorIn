@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Services\Master\UserService;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\Validator;
@@ -30,6 +31,11 @@ class UserController extends Controller
         return ResponseFormatter::success($data["data"], 'Get data successful');
     }
 
+    public function getMentor(){
+       $data = UserService::getMentor();
+       return ResponseFormatter::success($data, 'Get data successful');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -39,6 +45,9 @@ class UserController extends Controller
             'name' => $request->input('name'),
             'username' => $request->input("username"),
             'password' => $request->input('password'),
+            'asal_instansi' => $request->input('asal_instansi'),
+            'mentor_id' => $request->input('mentor_id'),
+            'periode_id' => $request->input('periode_id'),
             'password_konfirm' => $request->input('password_konfirm'),
             'path_photo' => $request->input('path_photo'),
             'role' => $request->input('role')
@@ -87,10 +96,12 @@ class UserController extends Controller
             'username' => $request->input("username"),
             'password' => $request->input('password'),
             'password_konfirm' => $request->input('password_konfirm'),
+            'asal_instansi' => $request->input('asal_instansi'),
+            'mentor_id' => $request->input('mentor_id'),
+            'periode_id' => $request->input('periode_id'),
             'path_photo' => $request->input('path_photo'),
             'role' => $request->input('role')
         ];
-
         // Validation rules
         $validation_rules = [
             'name' => 'required',
