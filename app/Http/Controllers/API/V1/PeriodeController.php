@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
 use App\Services\PeriodeService;
+use App\Models\Periode;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,10 @@ class PeriodeController extends Controller
         return ResponseFormatter::success($data["data"], 'Data berhasil diambil');
     }
 
+    public function getAll(){
+        $data = Periode::all();
+        return ResponseFormatter::success($data, 'Data berhasil diambil');
+    }
     /**
      * Store a newly created resource in storage.
      */

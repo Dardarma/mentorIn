@@ -24,6 +24,9 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'password',
         'path_photo',
+        'asal_instansi',
+        'mentor_id',
+        'periode_id',
         'status',
         'token',
         'fail_login_count',
@@ -77,4 +80,21 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(UserRole::class, 'user_id', 'user_id');
     }
+
+    public function mentor()
+    {
+        return $this->belongsTo(User::class, 'mentor_id', 'user_id');
+    }
+
+    public function mentee()
+    {
+        return $this->hasMany(User::class, 'mentor_id', 'user_id');
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'periode_id', 'id');
+    }
+
+
 }
