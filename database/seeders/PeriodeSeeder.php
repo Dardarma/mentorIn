@@ -16,7 +16,7 @@ class PeriodeSeeder extends Seeder
         periode::create([
             'tanggal_mulai' => '2025-01-01',
             'tanggal_akhir' => '2025-02-01',
-            'durasi_magang(bulan)' => '1',
+            'durasi_magang' => '1',
         ]);
     }
 }

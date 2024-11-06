@@ -3,6 +3,7 @@
 namespace App\Services\Transaction;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\Hasil_mentoring;
 use App\Models\Jadwal;
 use App\Models\Materi_mentoring;
 use App\Models\Todo;
@@ -75,7 +76,7 @@ class JadwalService
                 'materi' => $payload['materi'],
                 'description' => $payload['deskripsi']
             ]);
-            $todo = Todo::create([
+            $todo_pra = Todo::create([
                 'todo' => $payload['todo'],
                 'tipe' => 'PRA',
             ]);
@@ -83,11 +84,21 @@ class JadwalService
                 'tanggal_mentoring' => $payload['tanggal_mentoring'],
                 'jam_mentoring' => $payload['jam_mentoring'],
                 'status' => false,
-                'todo_id' => $todo->id,
+                'todo_id' => $todo_pra->id,
                 'user_id' => $payload['user_id'],
                 'mentor_id' => $payload['mentor_id'],
                 'materi_id' => $materi->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+            $todo_past = Todo::create([
+                'todo' => 'belum ada hasil',
+                'tipe' => 'PAST'
+            ]);
+            $hasil = Hasil_mentoring::create([
+                'jadwal_id' => $hasil->id,
+                'hasil' => 'belum ada hasil',
+                'feedback' => 'belum ada feedback',
+                'todo_id' => $todo_past->id
             ]);
 
             DB::commit();

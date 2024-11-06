@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('tanggal_mentoring');
+            $table->date('tanggal_mentoring');
             $table->time('jam_mentoring');
             $table->boolean('status')->default(false);
             $table->unsignedBigInteger('todo_id');
