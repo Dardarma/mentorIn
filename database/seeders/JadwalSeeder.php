@@ -20,7 +20,8 @@ class JadwalSeeder extends Seeder
             'todo_id' => '1',
             'user_id' => '4',
             'mentor_id' => '3',
-            'materi_id' => '1'
+            'materi_id' => '1',
+            'hasil_id' => '1'
         ]);
         Jadwal::create([
             'tanggal_mentoring' => '2025-02-02',

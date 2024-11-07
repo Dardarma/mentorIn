@@ -16,7 +16,6 @@ class HasilSeeder extends Seeder
         Hasil_mentoring::create([
             'hasil' => 'mentee sudah bisa php native',
             'feedback' => 'sudah bagus hanya perlu bisa komunikasi lebih baik',
-            'jadwal_id' => '1',
             'todo_id' => '2'
         ]); 
     }
