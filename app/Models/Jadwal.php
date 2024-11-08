@@ -12,12 +12,11 @@ class Jadwal extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function hasil()
-    {
-        return $this->hasMany(Hasil_mentoring::class, 'jadwal_id');
-    }
     public function todo(){
         return $this->belongsTo(Todo::class, 'todo_id');
+    }
+    public function hasil(){
+        return $this->belongsTo(Hasil_mentoring::class, 'hasil_id');
     }
     public function materi(){
         return $this->belongsTo(Materi_mentoring::class, 'materi_id');
@@ -29,6 +28,7 @@ class Jadwal extends Model
         'todo_id',
         'user_id',
         'mentor_id',
-        'materi_id'
+        'materi_id',
+        'hasil_id'
     ];
 }

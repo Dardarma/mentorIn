@@ -17,7 +17,6 @@ class Hasil_mentoring extends Model
     protected $fillable = [
         'hasil',
         'feedback',
-        'jadwal_id',
         'todo_id'
     ];
 }

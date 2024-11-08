@@ -109,6 +109,24 @@ class JadwalController extends Controller
             'materi' => $request->input('materi'),
             'deskripsi' => $request->input('deskripsi'),
         ];
+        $payload_hasil = [
+            'hasil' => $request->input('hasil'),
+            'feedback' => $request->input('feedback'),
+            'todo_pst' => $request->input('todo_pst')
+        ];
+        $validate_hasil = Validator::make(array_merge($payload_hasil), [
+            'hasil' => 'required|string',
+            'feedback' => 'string',
+            'todo_pst' =>  'required|string'
+        ], [
+            'required' => ':attribute harus diisi',
+            'string' => ':attribute harus berupa string'
+        ], [
+            'hasil' => 'Hasil Mentoring',
+            'feedback' => 'Feedback Mentoring',
+            'todo_pst' => 'Todo',
+
+        ]);
         $validate = Validator::make(array_merge($payload), [
             'todo' => 'required|string',
             'tanggal_mentoring' => 'required|date',
@@ -133,12 +151,12 @@ class JadwalController extends Controller
         ]);
 
 
-        if ($validate->fails()) {
+        if ($validate->fails()||$validate_hasil->fails()) {
             return ResponseFormatter::error([
                 'error' => $validate->errors()->all(),
             ], 'validation failed', 402);
         }
-        $data = JadwalService::edit($payload, $id);
+        $data = JadwalService::edit($payload, $payload_hasil, $id);
         if (!$data['status']) {
             return ResponseFormatter::error($data['errors'], 'create data unsuccessful');
         }
@@ -156,5 +174,10 @@ class JadwalController extends Controller
         }
 
         return ResponseFormatter::success($data['data'], 'Successfully delete data');
+    }
+    public function lastJadwal()
+    {
+        $last = JadwalService::lastMentoring();
+        return ResponseFormatter::success($last['data'], 'data last jadwal');
     }
 }

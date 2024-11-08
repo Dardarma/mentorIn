@@ -13,8 +13,4 @@ class Todo extends Model
         'todo',
         'tipe'
     ];
-    public function jadwal()
-    {
-        return $this->hasOne(Jadwal::class, 'todo_id', 'id');
-    }
 }

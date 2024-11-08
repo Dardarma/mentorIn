@@ -27,6 +27,25 @@ class JadwalService
             'data' => $data
         ];
     }
+    public static function lastMentoring()
+    {
+        $query = Jadwal::query()
+            ->where('user_id', Auth::id())
+            ->orWhere('mentor_id', Auth::id())
+            ->where('status', true)
+            ->orderBy('tanggal_mentoring', 'desc')
+            ->first();
+
+        $data = $query->with('user:user_id,name')
+            ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
+            ->with('hasil.todo:id,todo,tipe')
+            ->with('todo:id,todo,tipe')
+            ->with('materi:id,materi,description');
+        return [
+            'status' => true,
+            'data' => $data
+        ];
+    }
     public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
     {
         $userId = Auth::id();
@@ -48,7 +67,7 @@ class JadwalService
             ];
         }
         $data = $query->with('user:user_id,name')
-            ->with('hasil:id,hasil,todo_id,feedback,jadwal_id')
+            ->with('hasil:id,hasil,todo_id,feedback')
             ->with('hasil.todo:id,todo,tipe')
             ->with('todo:id,todo,tipe')
             ->with('materi:id,materi,description')
@@ -80,7 +99,16 @@ class JadwalService
                 'todo' => $payload['todo'],
                 'tipe' => 'PRA',
             ]);
-            $hasil = Jadwal::create([
+            $todo_past = Todo::create([
+                'todo' => 'belum ada hasil',
+                'tipe' => 'PAST'
+            ]);
+            $hasil = Hasil_mentoring::create([
+                'hasil' => 'belum ada hasil',
+                'feedback' => 'belum ada feedback',
+                'todo_id' => $todo_past->id
+            ]);
+            $jadwal = Jadwal::create([
                 'tanggal_mentoring' => $payload['tanggal_mentoring'],
                 'jam_mentoring' => $payload['jam_mentoring'],
                 'status' => false,
@@ -88,23 +116,14 @@ class JadwalService
                 'user_id' => $payload['user_id'],
                 'mentor_id' => $payload['mentor_id'],
                 'materi_id' => $materi->id,
+                'hasil_id' => $hasil->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ]);
-            $todo_past = Todo::create([
-                'todo' => 'belum ada hasil',
-                'tipe' => 'PAST'
-            ]);
-            $hasil = Hasil_mentoring::create([
-                'jadwal_id' => $hasil->id,
-                'hasil' => 'belum ada hasil',
-                'feedback' => 'belum ada feedback',
-                'todo_id' => $todo_past->id
             ]);
 
             DB::commit();
             return [
                 'status' => true,
-                'data'   => $hasil,
+                'data'   => $jadwal,
             ];
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -138,7 +157,7 @@ class JadwalService
      * @param  mixed $id
      * @return array
      */
-    public static function edit(array $payload, $id): array
+    public static function edit(array $payload, $payload_hasil, $id): array
     {
         DB::beginTransaction();
         try {
@@ -149,43 +168,62 @@ class JadwalService
                     'errors' => "not found",
                 ];
             }
-            $todo = Todo::find($data->todo_id);
+            $todo_pra = Todo::find($data->todo_id);
             $materi = Materi_mentoring::find($data->materi_id);
-            if (empty($todo) || empty($materi)) {
+            $hasil = Hasil_mentoring::find($data->hasil_id);
+            $todo_past = Todo::find($hasil->todo_id);
+            if (empty($todo_pra) || empty($materi)) {
                 return [
                     'status' => false,
                     'errors' => "Todo or Materi not found",
                 ];
             }
             //update todo
-            $todo->update([
+            $todo_pra->update([
                 'todo' => $payload['todo'],
                 'tipe' => 'PRA'
             ]);
-            DB::commit();
+
             //update materi
             $materi->update([
                 'materi' => $payload['materi'],
                 'description' => $payload['deskripsi'],
             ]);
-            DB::commit();
 
+            //update todo past
+            $todo_past->update([
+                'todo' => $payload_hasil['todo_pst'],
+                'tipe' => 'PAST'
+            ]);
+
+            //update hasil mentoring
+            $hasil->update([
+                'hasil' => $payload_hasil['hasil'],
+                'feedback' => $payload_hasil['feedback'],
+                'todo_id' => $todo_past->id
+            ]);
+
+            //update jadwal
             $update_data = [
                 'tanggal_mentoring' => $payload['tanggal_mentoring'],
                 'jam_mentoring' => $payload['jam_mentoring'],
                 'status' => false,
-                'todo_id' => $todo->id,
+                'todo_id' => $todo_pra->id,
                 'user_id' => $payload['user_id'],
                 'mentor_id' => $payload['mentor_id'],
                 'materi_id' => $materi->id,
+                'hasil_id' => $hasil->id
             ];
             $data->update($update_data);
+
             DB::commit();
+
             return [
                 'status' => true,
                 'data'   => $data,
-                'todo' => $todo,
-                'materi' => $materi
+                'todo' => $todo_pra,
+                'materi' => $materi,
+                'hasil' => $hasil
             ];
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -207,6 +245,8 @@ class JadwalService
         DB::beginTransaction();
         try {
             $data = Jadwal::where('id', $id)->first();
+            $hasil = Hasil_mentoring::where('id', $data->hasil_id)->first();
+            $todo_pst = Todo::where('id', $hasil->todo_id)->first();
             $todo = Todo::where('id', $data->todo_id)->first();
             $materi = Materi_mentoring::where('id', $data->materi_id)->first();
             if (empty($data)) {
@@ -214,18 +254,22 @@ class JadwalService
                     'status' => false,
                     'errors' => "jadwal not found",
                 ];
-            }if(empty($todo)){
+            }
+            if (empty($todo)) {
                 return [
                     'status' => false,
                     'errors' => "todo not found",
                 ];
-            }if(empty($materi)){
+            }
+            if (empty($materi)) {
                 return [
                     'status' => false,
                     'errors' => "materi not found",
                 ];
             }
             $data->delete();
+            $hasil->delete();
+            $todo_pst->delete();
             $todo->delete();
             $materi->delete();
 
