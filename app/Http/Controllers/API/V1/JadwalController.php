@@ -178,6 +178,6 @@ class JadwalController extends Controller
     public function lastJadwal()
     {
         $last = JadwalService::lastMentoring();
-        return ResponseFormatter::success($last['data'], 'data last jadwal');
+        return ResponseFormatter::success($last["data"], 'data last jadwal');
     }
 }

@@ -80,6 +80,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
         Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
         Route::get('/getid/{id}', [JadwalController::class, 'getbyid'])->middleware(['auth.api:jadwal_read']);
+        Route::get('/last', [JadwalController::class, 'lastJadwal'])->middleware(['auth.api:jadwal_read']);
         Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_create']);
         Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:jadwal_update']);
         Route::delete('/delete/{id}', [JadwalController::class, 'destroy'])->middleware(['auth.api:jadwal_delete']);
@@ -90,10 +91,5 @@ Route::prefix('v1')->group(function () {
         Route::put('/update/{id}', [PeriodeController::class, 'update']); 
         Route::get('/user', [PeriodeController::class, 'getAll']);
         Route::delete('/delete/{id}', [PeriodeController::class, 'destroy']); 
-    });
-    Route::prefix('hasil')->group(function (){
-        Route::post('/tambah', [HasilController::class, 'store']);
-        Route::put('/update/{id}', [HasilController::class, 'update']);
-        Route::delete('delete/{id}', [HasilController::class, 'destroy']);
     });
 });
