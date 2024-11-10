@@ -29,7 +29,8 @@ class JadwalSeeder extends Seeder
             'todo_id' => '3',
             'user_id' => '4',
             'mentor_id' => '3',
-            'materi_id' => '2'
+            'materi_id' => '2',
+            'hasil_id' => '2'
         ]);
     }
 }

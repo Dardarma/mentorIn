@@ -132,7 +132,13 @@ class JadwalService
     public static function getById($id): array
     {
         try {
-            $data = Jadwal::with(['todo', 'materi'])->where("id", $id)->first();
+            $data = Jadwal::with('todo')
+            ->with('materi:id,materi,description')
+            ->with('todo:id,todo,tipe')
+            ->with('hasil:id,hasil,feedback,todo_id')
+            ->with('hasil.todo:id,todo,tipe')
+            ->with('user:user_id,name')
+            ->where("id", $id)->first();
             return [
                 'status' => true,
                 'data'   => $data,
@@ -207,7 +213,8 @@ class JadwalService
                 'user_id' => $payload['user_id'],
                 'mentor_id' => $payload['mentor_id'],
                 'materi_id' => $materi->id,
-                'hasil_id' => $hasil->id
+                'hasil_id' => $hasil->id,
+                'status' => $payload['status']
             ];
             $data->update($update_data);
 
@@ -280,5 +287,11 @@ class JadwalService
                 'errors' => $th->getMessage(),
             ];
         }
+
+    }
+
+    public function JumlahMentoring(){
+
+       
     }
 }

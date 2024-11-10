@@ -12,7 +12,7 @@ class Hasil_mentoring extends Model
         return $this->belongsTo(Todo::class, 'todo_id');
     }
     public function jadwal(){
-        return $this->belongsTo(Jadwal::class, 'jadwal_id');
+        return $this->belongsTo(Jadwal::class, 'jadwal_id', 'id');
     }
     protected $fillable = [
         'hasil',
