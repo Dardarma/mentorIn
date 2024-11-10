@@ -41,6 +41,20 @@ class JadwalService
             'data' => $data
         ];
     }
+    public static function nextMentoring()
+    {
+        $query = Jadwal::query()
+            ->where('user_id', Auth::id())
+            ->orWhere('mentor_id', Auth::id())
+            ->where('status', false)
+            ->orderBy('tanggal_mentoring', 'desc');
+
+        $data = $query->first('tanggal_mentoring');
+        return [
+            'status' => true,
+            'data' => $data
+        ];
+    }
     public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
     {
         $userId = Auth::id();
@@ -133,12 +147,12 @@ class JadwalService
     {
         try {
             $data = Jadwal::with('todo')
-            ->with('materi:id,materi,description')
-            ->with('todo:id,todo,tipe')
-            ->with('hasil:id,hasil,feedback,todo_id')
-            ->with('hasil.todo:id,todo,tipe')
-            ->with('user:user_id,name')
-            ->where("id", $id)->first();
+                ->with('materi:id,materi,description')
+                ->with('todo:id,todo,tipe')
+                ->with('hasil:id,hasil,feedback,todo_id')
+                ->with('hasil.todo:id,todo,tipe')
+                ->with('user:user_id,name')
+                ->where("id", $id)->first();
             return [
                 'status' => true,
                 'data'   => $data,
@@ -287,11 +301,5 @@ class JadwalService
                 'errors' => $th->getMessage(),
             ];
         }
-
-    }
-
-    public function JumlahMentoring(){
-
-       
     }
 }

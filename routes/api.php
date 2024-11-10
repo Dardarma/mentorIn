@@ -80,12 +80,13 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
         Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
         Route::get('/getid/{id}', [JadwalController::class, 'getbyid'])->middleware(['auth.api:jadwal_read']);
+        Route::get('/last-mentoring', [JadwalController::class, 'lastJadwal'])->middleware(['auth.api:jadwal_read']);
+        Route::get('/next-mentoring', [JadwalController::class, 'nextJadwal'])->middleware(['auth.api:jadwal_read']);
+        Route::get('/bulan',[JadwalController::class, 'mentoringThisMounth'])->middleware(['auth.api:jadwal_read']);
+        Route::get('/notifikasi', [JadwalController::class, 'notifikasi'])->middleware(['auth.api:jadwal_read']);
         Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_create']);
         Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:jadwal_update']);
         Route::delete('/delete/{id}', [JadwalController::class, 'destroy'])->middleware(['auth.api:jadwal_delete']);
-        Route::get('/last-mentoring', [JadwalController::class, 'lastJadwal'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/bulan',[JadwalController::class, 'mentoringThisMounth'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/notifikasi', [JadwalController::class, 'notifikasi'])->middleware(['auth.api:jadwal_read']);
     });
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 
@@ -94,9 +95,4 @@ Route::prefix('v1')->group(function () {
         Route::get('/user', [PeriodeController::class, 'getAll']);
         Route::delete('/delete/{id}', [PeriodeController::class, 'destroy']); 
     });
-    // Route::prefix('hasil')->group(function (){
-    //     Route::post('/tambah', [HasilController::class, 'store']);
-    //     Route::put('/update/{id}', [HasilController::class, 'update']);
-    //     Route::delete('delete/{id}', [HasilController::class, 'destroy']);
-    // });
 });

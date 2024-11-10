@@ -98,6 +98,7 @@ class JadwalController extends Controller
             return ResponseFormatter::error(null, $response['errors'], 404);
         }
     }
+
     //update jadwal
     public function update(Request $request, string $id)
     {
@@ -166,6 +167,7 @@ class JadwalController extends Controller
         return ResponseFormatter::success($data['data'], 'create data successful');
     }
 
+    //hapus jadwal
     public function destroy(string $id)
     {
         $data = JadwalService::delete($id);
@@ -178,12 +180,22 @@ class JadwalController extends Controller
 
         return ResponseFormatter::success($data['data'], 'Successfully delete data');
     }
+
+    //jadwal mentoring terakhir yang sudah di lakukan
     public function lastJadwal()
     {
         $last = JadwalService::lastMentoring();
         return ResponseFormatter::success($last["data"], 'data last jadwal');
     }
 
+    //next mentoring
+    public function nextJadwal()
+    {
+        $last = JadwalService::nextMentoring();
+        return ResponseFormatter::success($last["data"], 'data last jadwal');
+    }
+
+    //mentoring dalam sebulan
     public function mentoringThisMounth(){
         
         $userId = Auth::id();
@@ -208,6 +220,7 @@ class JadwalController extends Controller
       
     }
 
+    //notifikasi
     public function notifikasi(){
         $userId = Auth::id();
         $besok = Carbon::now()->addDay()->format('Y-m-d');
