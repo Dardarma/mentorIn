@@ -18,5 +18,11 @@ class HasilSeeder extends Seeder
             'feedback' => 'sudah bagus hanya perlu bisa komunikasi lebih baik',
             'todo_id' => '2'
         ]); 
+
+        Hasil_mentoring::create([
+            'hasil' => 'ndak tau',
+            'feedback' => 'sudah bagus hanya perlu bisa komunikasi lebih baik',
+            'todo_id' => '4'
+        ]); 
     }
 }

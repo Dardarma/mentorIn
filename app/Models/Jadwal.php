@@ -21,6 +21,11 @@ class Jadwal extends Model
     public function materi(){
         return $this->belongsTo(Materi_mentoring::class, 'materi_id');
     }
+
+    public function mentor()
+    {
+        return $this->belongsTo(User::class, 'mentor_id');
+    }
     protected $fillable = [
         'tanggal_mentoring',
         'jam_mentoring',

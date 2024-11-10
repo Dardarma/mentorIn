@@ -13,6 +13,8 @@ use App\Services\Transaction\JadwalService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class JadwalController extends Controller
 {
@@ -108,6 +110,7 @@ class JadwalController extends Controller
             'tipe' => 'PRA',
             'materi' => $request->input('materi'),
             'deskripsi' => $request->input('deskripsi'),
+            'status' => $request->input('status')
         ];
         $payload_hasil = [
             'hasil' => $request->input('hasil'),
@@ -179,5 +182,51 @@ class JadwalController extends Controller
     {
         $last = JadwalService::lastMentoring();
         return ResponseFormatter::success($last['data'], 'data last jadwal');
+    }
+
+    public function mentoringThisMounth(){
+        
+        $userId = Auth::id();
+        $data = Jadwal::where(function ($q) use ($userId) {
+            $q->where('user_id', $userId)
+              ->orWhere('mentor_id', $userId);
+        })
+        ->whereMonth('tanggal_mentoring', Carbon::now()->month)
+        ->whereYear('tanggal_mentoring', Carbon::now()->year)
+        ->with('user:user_id,name') 
+        ->get(['user_id']) 
+        ->groupBy('user_id')
+        ->map(function ($items) {
+            $userName = $items->first()->user->name ?? 'Nama tidak ditemukan';
+            return [
+                'jumlah_jadwal' => $items->count(),
+                'nama_user' => $userName,
+            ];
+        })->values();
+
+        return ResponseFormatter::success($data);
+      
+    }
+
+    public function notifikasi(){
+        $userId = Auth::id();
+        $besok = Carbon::now()->addDay()->format('Y-m-d');
+        $data = Jadwal::where(function ($q) use ($userId) {
+            $q->where('user_id', $userId)
+              ->orWhere('mentor_id', $userId);
+        })
+        ->where('tanggal_mentoring', $besok)
+        ->select('id','jam_mentoring', 'user_id', 'mentor_id')
+        ->with([
+            'user:user_id,name',
+            'mentor:user_id,name'
+        ])
+        ->get();
+
+        if($data->isEmpty()){
+            return ResponseFormatter::success(null, 'tidak ada jadwal untuk besok');
+        }else{
+            return ResponseFormatter::success($data, 'ada jadwal untuk besok');
+        }
     }
 }
