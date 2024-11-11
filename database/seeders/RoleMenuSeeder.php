@@ -21,7 +21,7 @@ class RoleMenuSeeder extends Seeder
         foreach ($roles as $role) {
             foreach ($menus as $menu) {
                 if (
-                    ($role->role_name == 'User' && in_array($menu->menu_master_name, ['Dashboards'])) || // Role "User" hanya akses "Dashboards"
+                    ($role->role_name == 'User' && in_array($menu->menu_master_name, ['Dashboards', 'Jadwal'])) || // Role "User" hanya akses "Dashboards"
                     ($role->role_name == 'Mentor' && in_array($menu->menu_master_name, ['Dashboards', 'Jadwal'])) || // Role "Mentor" akses "Dashboards" dan "Jadwal"
                     ($role->role_name == 'Administrator') // Role "Administrator" akses semua menu
                 ) {
