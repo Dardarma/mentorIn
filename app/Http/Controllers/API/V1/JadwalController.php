@@ -21,12 +21,14 @@ class JadwalController extends Controller
     //show jadwal
     public function index(Request $request)
     {
+        $status = $request->input('status_mentoring');
+        $mente = $request->input('mente');
         $sort_field = $request->input('sort_field', 'created_at');
         $sort_order = $request->input('sort_order', 'desc');
         $page = $request->input('page', 1);
         $per_page = $request->input('per_page', 10);
 
-        $jadwal = JadwalService::getAllPaginate($page, $per_page, $sort_field, $sort_order);
+        $jadwal = JadwalService::getAllPaginate($page, $per_page, $sort_field, $sort_order, $status, $mente);
         return ResponseFormatter::success($jadwal["data"], 'Get data successful');
     }
 

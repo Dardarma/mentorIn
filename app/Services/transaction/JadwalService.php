@@ -55,7 +55,7 @@ class JadwalService
             'data' => $data
         ];
     }
-    public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc')
+    public static function getAllPaginate(/*$filter = []*/$page = 1, $per_page = 10, $sort_field = 'created_at', $sort_order = 'desc', $status = null, $mente = null)
     {
         $userId = Auth::id();
         $roleId = DB::table('user_roles')
@@ -75,6 +75,14 @@ class JadwalService
                 'data' => 'Data tidak ada',
             ];
         }
+        //filter untuk status jadwal
+        if (!is_null($status)) {
+            $query->where('status', $status);
+        }
+        //filter untuk mente
+        if (!is_null($mente)) {
+            $query->where('mente', 'LIKE', '%' . $mente . '%');
+        }    
         $data = $query->with('user:user_id,name')
             ->with('hasil:id,hasil,todo_id,feedback')
             ->with('hasil.todo:id,todo,tipe')

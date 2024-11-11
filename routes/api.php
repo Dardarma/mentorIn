@@ -88,6 +88,10 @@ Route::prefix('v1')->group(function () {
         Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:jadwal_update']);
         Route::delete('/delete/{id}', [JadwalController::class, 'destroy'])->middleware(['auth.api:jadwal_delete']);
     });
+    Route::prefix('mente')->group(function (){
+        Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:dashboard_read']);
+        Route::get('/edit', [JadwalController::class, 'edit'])->middleware(['auth.api:dashboard_read']);
+    });
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 
         Route::post('/add', [PeriodeController::class, 'store']); 
