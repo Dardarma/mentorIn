@@ -151,4 +151,20 @@ class UserController extends Controller
         }
         return ResponseFormatter::success($data['data'], 'update data successful');
     }
+
+    /**
+     * delete user
+     */
+    public function destroy(string $id)
+    {
+        $data = UserService::delete($id);
+        if (!$data['status']) {
+            $erroCode = $data['errors'] == 'Not Found' ? 404 : 400;
+            return ResponseFormatter::error([
+                'errors' => $data['errors'],
+            ], 'delete data unsuccessful', $erroCode);
+        }
+
+        return ResponseFormatter::success($data['data'], 'Successfully delete data');
+    }
 }

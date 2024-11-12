@@ -37,9 +37,10 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('user')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->middleware(['auth.api']);
-        Route::post('/', [UserController::class, 'store'])->middleware(['auth.api']);
-        Route::put('/{id}', [UserController::class, 'update'])->middleware(['auth.api']);
+        Route::get('/', [UserController::class, 'index'])->middleware(['auth.api:user_read']);
+        Route::post('/', [UserController::class, 'store'])->middleware(['auth.api:user_create']);
+        Route::put('/{id}', [UserController::class, 'update'])->middleware(['auth.api:user_update']);
+        Route::delete('/{id}', [UserController::class, 'delete'])->middleware(['auth.api:user_delete']);
         Route::get('/mentor',[UserController::class, 'getMentor'])->middleware(['auth.api']);
     });
 
