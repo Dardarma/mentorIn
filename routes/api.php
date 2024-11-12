@@ -78,15 +78,15 @@ Route::prefix('v1')->group(function () {
         Route::get('/get-menu-access', [ReferenceController::class, 'getMenuAccess'])->middleware(['auth.api']);
     });
     Route::prefix('jadwal')->group(function (){
-        Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/getid/{id}', [JadwalController::class, 'getbyid'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/last-mentoring', [JadwalController::class, 'lastJadwal'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/next-mentoring', [JadwalController::class, 'nextJadwal'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/bulan',[JadwalController::class, 'mentoringThisMounth'])->middleware(['auth.api:jadwal_read']);
-        Route::get('/notifikasi', [JadwalController::class, 'notifikasi'])->middleware(['auth.api:jadwal_read']);
-        Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_create']);
-        Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:jadwal_update']);
+        Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:dashboard_read']);
+        Route::get('/mente', [JadwalController::class, 'getUsersByRole'])->middleware(['auth.api:dashboard_read']);
+        Route::get('/getid/{id}', [JadwalController::class, 'getbyid'])->middleware(['auth.api:dashboard_read']);
+        Route::get('/last-mentoring', [JadwalController::class, 'lastJadwal'])->middleware(['auth.api:dashboard_read']);
+        Route::get('/next-mentoring', [JadwalController::class, 'nextJadwal'])->middleware(['auth.api:dashboard_read']);
+        Route::get('/bulan',[JadwalController::class, 'mentoringThisMounth'])->middleware(['auth.api:dashboard_read']);
+        Route::get('/notifikasi', [JadwalController::class, 'notifikasi'])->middleware(['auth.api:dashboard_read']);
+        Route::post('/add', [JadwalController::class, 'store'])->middleware(['auth.api:jadwal_read']);
+        Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:dashboard_read']);
         Route::delete('/delete/{id}', [JadwalController::class, 'destroy'])->middleware(['auth.api:jadwal_delete']);
     });
     Route::prefix('mente')->group(function (){
