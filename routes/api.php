@@ -40,7 +40,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware(['auth.api:user_read']);
         Route::post('/', [UserController::class, 'store'])->middleware(['auth.api:user_create']);
         Route::put('/{id}', [UserController::class, 'update'])->middleware(['auth.api:user_update']);
-        Route::delete('/{id}', [UserController::class, 'delete'])->middleware(['auth.api:user_delete']);
+        Route::delete('/{id}', [UserController::class, 'destroy'])->middleware(['auth.api:user_delete']);
         Route::get('/mentor',[UserController::class, 'getMentor'])->middleware(['auth.api']);
     });
 
@@ -98,11 +98,10 @@ Route::prefix('v1')->group(function () {
         Route::get('/bulan',[JadwalController::class, 'mentoringThisMounth'])->middleware(['auth.api:dashboard_read']);
         Route::get('/notifikasi', [JadwalController::class, 'notifikasi'])->middleware(['auth.api:dashboard_read']);
         Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:dashboard_update']);
-    });
-    Route::prefix('mente')->group(function (){
         Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:dashboard_read']);
         Route::get('/edit', [JadwalController::class, 'edit'])->middleware(['auth.api:dashboard_read']);
     });
+
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 
         Route::post('/add', [PeriodeController::class, 'store']); 
