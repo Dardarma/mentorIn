@@ -226,11 +226,20 @@ class JadwalController extends Controller
     public function notifikasi(){
         $userId = Auth::id();
         $besok = Carbon::now()->addDay()->format('Y-m-d');
+        $jamSekarang = Carbon::now()->format('H:i:s');
+
         $data = Jadwal::where(function ($q) use ($userId) {
             $q->where('user_id', $userId)
               ->orWhere('mentor_id', $userId);
         })
-        ->where('tanggal_mentoring', $besok)
+        ->whereDate('tanggal_mentoring', '<=', $besok)
+        ->where(function ($q) use ($jamSekarang){
+            $q->whereDate('tanggal_mentoring', '=', Carbon::now()->addDay()->format('Y-m-d'))
+                ->orWhere(function($query) use ($jamSekarang){
+                    $query->whereDate('tanggal_mentoring', '=', Carbon::now()->format('Y-m-d'))
+                    ->where('jam_mentoring', '>', $jamSekarang);
+                });
+        })
         ->select('id','jam_mentoring', 'user_id', 'mentor_id')
         ->with([
             'user:user_id,name',
