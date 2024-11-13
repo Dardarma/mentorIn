@@ -35,9 +35,17 @@ class JadwalController extends Controller
     //mengambil user untuk dropdown 
     public function getUsersByRole()
     {
-        $mentorId = auth()->id(); // Dapatkan ID mentor yang sedang login
-
-        $users = User::where('mentor_id', $mentorId)->get(['user_id', 'name']); // Ambil user dengan mentor_id sesuai ID mentor
+        $userId = Auth::id();
+        $roleId = DB::table('user_roles')
+            ->where('user_id', $userId)
+            ->value('role_id');
+        if($roleId === 1){
+            $users = User::whereNotNull('mentor_id')->get(['user_id', 'name']);
+        }else{
+            $mentorId = auth()->id(); 
+            $users = User::where('mentor_id', $mentorId)->get(['user_id', 'name']); 
+        };
+        
 
         return response()->json($users);
     }
