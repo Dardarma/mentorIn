@@ -100,6 +100,7 @@ Route::prefix('v1')->group(function () {
         Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:dashboard_update']);
         Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:dashboard_read']);
         Route::get('/edit', [JadwalController::class, 'edit'])->middleware(['auth.api:dashboard_read']);
+        Route::put('/drag/{id}', [JadwalController::class, 'updateStatus'])->middleware(['auth.api:dashboard_update']);
     });
 
     Route::prefix('periode')->group(function () {
