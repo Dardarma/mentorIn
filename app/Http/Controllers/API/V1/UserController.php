@@ -20,6 +20,7 @@ class UserController extends Controller
             'status' => $request->input('status'),
             'role' => $request->input('role'),
             'search' => $request->input('search'),
+            'periode' => $request->input('periode')
         ];
 
         $sort_field = $request->input('sort_field', 'created_at');

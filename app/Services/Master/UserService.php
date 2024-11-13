@@ -36,6 +36,11 @@ class UserService
                     $query->where('role_id', $filter['role']);
                 });
             });
+            $query->when($filter['periode'], function ($query) use ($filter) {
+                $query->whereHas('periode', function ($query) use ($filter) {
+                    $query->where('periode_id', $filter['periode']);
+                });
+            });
             $query->when($filter['search'], function ($query) use ($filter) {
                 $query->where(function ($query) use ($filter) {
                     $query->orWhere(DB::raw('LOWER(name)'), 'like', "%" . strtolower($filter['search']) . "%");
