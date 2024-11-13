@@ -82,7 +82,7 @@ class JadwalService
         //filter untuk mente
         if (!is_null($mente)) {
             $query->where('user_id', $mente);
-        }    
+        }
         $data = $query->with('user:user_id,name')
             ->with('hasil:id,hasil,todo_id,feedback')
             ->with('hasil.todo:id,todo,tipe')
@@ -301,6 +301,39 @@ class JadwalService
             return [
                 'status' => true,
                 'data'   => true,
+            ];
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return [
+                'status' => false,
+                'errors' => $th->getMessage(),
+            ];
+        }
+    }
+
+    public static function dragAndDown(array $payload, $id): array
+    {
+        DB::beginTransaction();
+        try {
+            $data = Jadwal::where('id', $id)->first();
+
+            if (empty($data)) {
+                return [
+                    'status' => false,
+                    'errors' => "Data not found",
+                ];
+            }
+
+            // Update status ke true
+            $data->update([
+                'status' => true
+            ]);
+
+            DB::commit();
+
+            return [
+                'status' => true,
+                'data'   => $data
             ];
         } catch (\Throwable $th) {
             DB::rollBack();

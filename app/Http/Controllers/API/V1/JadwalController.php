@@ -261,4 +261,13 @@ class JadwalController extends Controller
             return ResponseFormatter::success($data, 'ada jadwal untuk besok');
         }
     }
+
+    public function updateStatus(Request $request, string $id){
+        $payload = ['status' => $request->input('status')];
+        $data = JadwalService::dragAndDown($payload, $id);
+        if (!$data['status']) {
+            return ResponseFormatter::error($data['errors'], 'create data unsuccessful');
+        }
+        return ResponseFormatter::success($data['data'], 'create data successful');
+    }
 }
