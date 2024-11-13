@@ -99,10 +99,6 @@ Route::prefix('v1')->group(function () {
         Route::get('/notifikasi', [JadwalController::class, 'notifikasi'])->middleware(['auth.api:dashboard_read']);
         Route::put('/update/{id}', [JadwalController::class, 'update'])->middleware(['auth.api:dashboard_update']);
     });
-    Route::prefix('mente')->group(function (){
-        Route::get('/', [JadwalController::class, 'index'])->middleware(['auth.api:dashboard_read']);
-        Route::get('/edit', [JadwalController::class, 'edit'])->middleware(['auth.api:dashboard_read']);
-    });
     Route::prefix('periode')->group(function () {
         Route::get('/', [PeriodeController::class, 'index']); 
         Route::post('/add', [PeriodeController::class, 'store']); 

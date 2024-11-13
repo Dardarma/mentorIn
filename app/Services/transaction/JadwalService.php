@@ -81,7 +81,7 @@ class JadwalService
         }
         //filter untuk mente
         if (!is_null($mente)) {
-            $query->where('mente', 'LIKE', '%' . $mente . '%');
+            $query->where('user_id', $mente);
         }    
         $data = $query->with('user:user_id,name')
             ->with('hasil:id,hasil,todo_id,feedback')
