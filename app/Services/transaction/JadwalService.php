@@ -311,36 +311,42 @@ class JadwalService
         }
     }
 
-    public static function dragAndDown(array $payload, $id): array
-    {
-        DB::beginTransaction();
-        try {
-            $data = Jadwal::where('id', $id)->first();
 
-            if (empty($data)) {
+
+    public static function getDashboars(/*$filter = []*/$page = 1, $per_page = 10,)
+        {
+            $userId = Auth::id();
+            $roleId = DB::table('user_roles')
+                ->where('user_id', $userId)
+                ->value('role_id');
+            $query = Jadwal::query()
+                ->where(function ($query) use ($roleId, $userId) {
+                    if ($roleId === 1) {
+                        return;
+                    }
+                    $query->where('user_id', Auth::id())
+                        ->orWhere('mentor_id', Auth::id());
+                });
+            if (!$query->exists()) {
                 return [
                     'status' => false,
-                    'errors' => "Data not found",
+                    'data' => 'Data tidak ada',
                 ];
             }
-
-            // Update status ke true
-            $data->update([
-                'status' => true
-            ]);
-
-            DB::commit();
-
+      
+            $data = $query->with('user:user_id,name')
+                ->with('hasil:id,hasil,todo_id,feedback')
+                ->with('hasil.todo:id,todo,tipe')
+                ->with('todo:id,todo,tipe')
+                ->with('materi:id,materi,description')
+                ->paginate($per_page, ['*'], 'page', $page)
+                ->appends('per_page', $per_page);
+    
             return [
                 'status' => true,
-                'data'   => $data
-            ];
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return [
-                'status' => false,
-                'errors' => $th->getMessage(),
+                'data' => $data,
             ];
         }
-    }
+
+
 }

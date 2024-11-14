@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Response;
 
 class JadwalController extends Controller
 {
@@ -262,12 +263,36 @@ class JadwalController extends Controller
         }
     }
 
-    public function updateStatus(Request $request, string $id){
-        $payload = ['status' => $request->input('status')];
-        $data = JadwalService::dragAndDown($payload, $id);
-        if (!$data['status']) {
-            return ResponseFormatter::error($data['errors'], 'create data unsuccessful');
+    public function updateStatus(Request $request, ){
+       
+        $validate = $request->validate([
+            'trueData' => 'required|array',
+            'falseData' => 'required|array'
+        ]);
+
+        try{
+
+            foreach($validate['trueData'] as $items){
+                Jadwal::where('id',$items['id'])->update(['status' => true]);
+            }
+            
+            foreach($validate['falseData'] as $items){
+                Jadwal::where('id', $items['id'])->update(['status' => false]);
+            }
+            
+            return ResponseFormatter::success('berhasil update status');
+        } catch (\Exception $error) {
+            return ResponseFormatter::error($error->getMessage(), 'gagal');
         }
-        return ResponseFormatter::success($data['data'], 'create data successful');
+    }
+
+    public function getDashboard(Request $request)
+    {
+  
+        $page = $request->input('page', 1);
+        $per_page = $request->input('per_page', 10);
+
+        $jadwal = JadwalService::getDashboars($page, $per_page,);
+        return ResponseFormatter::success($jadwal["data"], 'Get data successful');
     }
 }
