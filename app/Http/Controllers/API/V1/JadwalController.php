@@ -249,6 +249,7 @@ class JadwalController extends Controller
                     ->where('jam_mentoring', '>', $jamSekarang);
                 });
         })
+        ->where('status', false)
         ->select('id','jam_mentoring', 'user_id', 'mentor_id')
         ->with([
             'user:user_id,name',
